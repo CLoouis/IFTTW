@@ -2,4 +2,13 @@
     <string name="app_name">ifttw</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
+    <string name="page_create_routine">Create Routine</string>
+    <string name="if_label">If</string>
+    <string name="this_label">This</string>
+    <string name="then_label">Then</string>
+    <string name="what_label">What ?</string>
+    <string name="trigger">Select Trigger Service</string>
+    <string name="condition_date">Date and Time</string>
+    <string name="date"
+
 </resources>
