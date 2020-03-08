@@ -13,13 +13,39 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".NotificationActivity"></activity>
+        <activity android:name=".ActionActivity" />
         <activity
-            android:name=".DateTime"
+            android:name=".date.TriggerDate3"
+            android:label="@string/date1"
+            android:parentActivityName=".date.DateTime">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ifttw.date.TriggerDate3" />
+        </activity>
+        <activity
+            android:name=".date.TriggerDate2"
+            android:label="@string/date1"
+            android:parentActivityName=".date.DateTime">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ifttw.date.TriggerDate2" />
+        </activity>
+        <activity
+            android:name=".date.TriggerDate1"
+            android:label="@string/date1"
+            android:parentActivityName=".date.DateTime">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ifttw.date.TriggerDate1" />
+        </activity>
+        <activity
+            android:name=".date.DateTime"
             android:label="@string/date"
             android:parentActivityName=".TriggerActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.ifttw.DateTime" />
+                android:value="com.example.ifttw.date.DateTime" />
         </activity>
         <activity
             android:name=".TriggerActivity"

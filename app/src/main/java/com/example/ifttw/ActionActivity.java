@@ -7,26 +7,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.ifttw.date.DateTime;
-
-public class TriggerActivity extends AppCompatActivity {
+public class ActionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trigger);
-        Button date = findViewById(R.id.date);
-        date.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_action);
+
+        Button notification = (Button) findViewById(R.id.notification);
+        notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                launchSelectDateActivity(view);
+                launchNotificationActivity(view);
             }
         });
     }
 
-    public void launchSelectDateActivity(View view) {
-        Intent intent = new Intent(this, DateTime.class);
+    public void launchNotificationActivity(View view) {
+        Intent intent = new Intent(this, NotificationActivity.class);
         startActivity(intent);
     }
-
 }

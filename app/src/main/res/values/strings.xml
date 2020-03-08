@@ -9,6 +9,30 @@
     <string name="what_label">What ?</string>
     <string name="trigger">Select Trigger Service</string>
     <string name="condition_date">Date and Time</string>
-    <string name="date"
+    <string name="date">Date and Time</string>
+    <string name="every_day_at">Every Day At</string>
+    <string name="every_week_at">Every Week at</string>
+    <string name="one_time_at">One Time at</string>
+    <string name="date1">Complete Trigger Fields</string>
+    <string name="desc1">This will send trigger signal every single day at a specific time set by you.</string>
+    <string name="datu">Every day at</string>
+    <string name="time">Time</string>
+    <string name="confirm">Confirm</string>
+    <string name="everyweekdetail">This will send trigger signal on specific day of the week at time you provide.</string>
+    <string name="day">Day of the week</string>
+    <string name="sunday">Sunday</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thrusday">Thrusday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="time_label">Time</string>
+    <string name="onetimedesc">This will send trigger one time at date and time you provide.</string>
+    <string name="datetext">Date</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="notification">Notification</string>
 
 </resources>

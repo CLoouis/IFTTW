@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class create_routine extends AppCompatActivity {
 
@@ -20,10 +21,24 @@ public class create_routine extends AppCompatActivity {
                 launchTriggerServiceActivity(view);
             }
         });
+
+        TextView what = (TextView) findViewById(R.id.what);
+        what.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchActionActivity(v);
+            }
+        });
+
     }
 
     public void launchTriggerServiceActivity(View view) {
         Intent intent = new Intent(this, TriggerActivity.class);
         startActivity(intent);
+    }
+
+    public void launchActionActivity(View v) {
+       Intent intent = new Intent(this, ActionActivity.class);
+       startActivity(intent);
     }
 }
