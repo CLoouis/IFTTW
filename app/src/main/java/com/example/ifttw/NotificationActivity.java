@@ -2,6 +2,7 @@ package com.example.ifttw;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +26,7 @@ public class NotificationActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                pushNotification();
                 goToHome(view);
             }
         });
@@ -34,5 +36,23 @@ public class NotificationActivity extends AppCompatActivity {
     public void goToHome(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    public void pushNotification() {
+        Intent intent = new Intent(this, NotificationReceiver.class);
+        intent.putExtra("idRoutine", 0);
+        intent.putExtra("title", titleNotification.getText().toString());
+        intent.putExtra("description", detailNotification.getText().toString());
+//        startActivityForResult(intent, -1);
+        final PendingIntent notifyPendingIntent = PendingIntent.getBroadcast
+                (this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        try {
+            notifyPendingIntent.send();
+        } catch (PendingIntent.CanceledException e) {
+            e.printStackTrace();
+        }
+
+//        Intent pushNotificationIntent = new Intent(this, NotificationReceiver)
     }
 }
