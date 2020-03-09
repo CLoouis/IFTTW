@@ -8,6 +8,8 @@ import android.content.Intent;
 
 import androidx.core.app.NotificationCompat;
 
+import com.example.ifttw.date.TriggerDate3;
+
 public class NotificationReceiver extends BroadcastReceiver {
     private NotificationManager mNotificationManager;
     private static final String PRIMARY_CHANNEL_ID =
@@ -26,7 +28,7 @@ public class NotificationReceiver extends BroadcastReceiver {
     }
 
     private void deliverNotification(Context context, int NOTIFICATION_ID, String title, String description) {
-        Intent contentIntent = new Intent(context, NotificationActivity.class);
+        Intent contentIntent = new Intent(context, TriggerDate3.class);
         PendingIntent contentPendingIntent = PendingIntent.getActivity
                 (context, NOTIFICATION_ID, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 

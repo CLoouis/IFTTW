@@ -14,9 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <receiver
-            android:name=".NotificationReceiver"
+            android:name=".TimerReceiver"
             android:enabled="true"
             android:exported="false"></receiver>
+        <receiver
+            android:name=".NotificationReceiver"
+            android:enabled="true"
+            android:exported="false" />
 
         <activity android:name=".NotificationActivity" />
         <activity android:name=".ActionActivity" />

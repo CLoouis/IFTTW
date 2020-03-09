@@ -26,7 +26,7 @@ public class NotificationActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pushNotification();
+//                pushNotification();
                 goToHome(view);
             }
         });
@@ -38,21 +38,18 @@ public class NotificationActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void pushNotification() {
-        Intent intent = new Intent(this, NotificationReceiver.class);
-        intent.putExtra("idRoutine", 0);
-        intent.putExtra("title", titleNotification.getText().toString());
-        intent.putExtra("description", detailNotification.getText().toString());
-//        startActivityForResult(intent, -1);
-        final PendingIntent notifyPendingIntent = PendingIntent.getBroadcast
-                (this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        try {
-            notifyPendingIntent.send();
-        } catch (PendingIntent.CanceledException e) {
-            e.printStackTrace();
-        }
-
-//        Intent pushNotificationIntent = new Intent(this, NotificationReceiver)
-    }
+//    public void pushNotification() {
+//        Intent intent = new Intent(this, NotificationReceiver.class);
+//        intent.putExtra("idRoutine", 0);
+//        intent.putExtra("title", titleNotification.getText().toString());
+//        intent.putExtra("description", detailNotification.getText().toString());
+//        final PendingIntent notifyPendingIntent = PendingIntent.getBroadcast
+//                (this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//        try {
+//            notifyPendingIntent.send();
+//        } catch (PendingIntent.CanceledException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }
