@@ -74,9 +74,9 @@ public class TriggerDate3 extends AppCompatActivity implements View.OnClickListe
         if (v == btnTimePicker) {
 
             // Get Current Time
-            final Calendar c = Calendar.getInstance();
-            mHour = c.get(Calendar.HOUR_OF_DAY);
-            mMinute = c.get(Calendar.MINUTE);
+//            final Calendar c = Calendar.getInstance();
+//            mHour = c.get(Calendar.HOUR_OF_DAY);
+//            mMinute = c.get(Calendar.MINUTE);
 
             // Launch Time Picker Dialog
             TimePickerDialog timePickerDialog = new TimePickerDialog(this,
@@ -87,6 +87,9 @@ public class TriggerDate3 extends AppCompatActivity implements View.OnClickListe
                                               int minute) {
                             if (minute < 10) txtTime.setText(hourOfDay + ":0" + minute);
                             else txtTime.setText(hourOfDay + ":" + minute);
+
+                            mHour = hourOfDay;
+                            mMinute = minute;
                         }
                     }, mHour, mMinute, false);
             timePickerDialog.show();

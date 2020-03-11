@@ -33,8 +33,11 @@ public class TriggerDate1 extends AppCompatActivity implements  View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trigger_date1);
 
+
+
         btnTimePicker = (Button)findViewById(R.id.button5);
         txtTime = (EditText)findViewById(R.id.editText2);
+        txtTime.setEnabled(false);
         txtTime.setText(currHour + ":00");
         btnTimePicker.setOnClickListener(this);
 
@@ -47,9 +50,9 @@ public class TriggerDate1 extends AppCompatActivity implements  View.OnClickList
         if (v == btnTimePicker) {
 
             // Get Current Time
-            final Calendar c = Calendar.getInstance();
-            mHour = c.get(Calendar.HOUR_OF_DAY);
-            mMinute = c.get(Calendar.MINUTE);
+//            final Calendar c = Calendar.getInstance();
+//            mHour = c.get(Calendar.HOUR_OF_DAY);
+//            mMinute = c.get(Calendar.MINUTE);
 
             // Launch Time Picker Dialog
             TimePickerDialog timePickerDialog = new TimePickerDialog(this,
@@ -60,6 +63,8 @@ public class TriggerDate1 extends AppCompatActivity implements  View.OnClickList
                                               int minute) {
                             if (minute < 10) txtTime.setText(hourOfDay + ":0" + minute);
                             else txtTime.setText(hourOfDay + ":" + minute);
+                            mHour = hourOfDay;
+                            mMinute = minute;
                         }
                     }, mHour, mMinute, false);
             timePickerDialog.show();
