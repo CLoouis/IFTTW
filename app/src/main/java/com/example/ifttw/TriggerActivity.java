@@ -18,14 +18,27 @@ public class TriggerActivity extends AppCompatActivity {
         Button date = findViewById(R.id.date);
         date.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                launchSelectDateActivity(view);
+            public void onClick(View v) {
+                launchSelectDateActivity(v);
+            }
+        });
+
+        Button sensor = findViewById(R.id.sensor);
+        sensor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchSensorActivity(v);
             }
         });
     }
 
-    public void launchSelectDateActivity(View view) {
+    public void launchSelectDateActivity(View v) {
         Intent intent = new Intent(this, DateTime.class);
+        startActivity(intent);
+    }
+
+    public void launchSensorActivity(View v) {
+        Intent intent = new Intent(this, SensorActivity.class);
         startActivity(intent);
     }
 

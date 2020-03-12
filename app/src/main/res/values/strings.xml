@@ -30,9 +30,11 @@
     <string name="time_label">Time</string>
     <string name="onetimedesc">This will send trigger one time at date and time you provide.</string>
     <string name="datetext">Date</string>
+    <string name="error_no_sensor">No sensor</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="notification">Notification</string>
+    <string name="label_proximity">Proximity Sensor: %1$.2f</string>
 
 </resources>

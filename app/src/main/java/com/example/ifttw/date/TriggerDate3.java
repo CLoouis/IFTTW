@@ -24,7 +24,6 @@ import com.example.ifttw.TimerReceiver;
 import com.example.ifttw.create_routine;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class TriggerDate3 extends AppCompatActivity implements View.OnClickListener {
     Button btnConfirm, btnTimePicker, btnDatePicker;
@@ -111,9 +110,9 @@ public class TriggerDate3 extends AppCompatActivity implements View.OnClickListe
         if (v == btnTimePicker) {
 
             // Get Current Time
-            final Calendar c = Calendar.getInstance();
-            mHour = c.get(Calendar.HOUR_OF_DAY);
-            mMinute = c.get(Calendar.MINUTE);
+//            final Calendar c = Calendar.getInstance();
+//            mHour = c.get(Calendar.HOUR_OF_DAY);
+//            mMinute = c.get(Calendar.MINUTE);
 
             // Launch Time Picker Dialog
             TimePickerDialog timePickerDialog = new TimePickerDialog(this,

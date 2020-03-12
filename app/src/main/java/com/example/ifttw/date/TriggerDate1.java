@@ -3,7 +3,6 @@ package com.example.ifttw.date;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlarmManager;
-import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -12,7 +11,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -24,7 +22,6 @@ import com.example.ifttw.TimerReceiver;
 import com.example.ifttw.create_routine;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class TriggerDate1 extends AppCompatActivity implements  View.OnClickListener {
 
@@ -45,6 +42,7 @@ public class TriggerDate1 extends AppCompatActivity implements  View.OnClickList
 
         btnTimePicker = (Button)findViewById(R.id.button5);
         txtTime = (EditText)findViewById(R.id.editText2);
+        txtTime.setEnabled(false);
         txtTime.setText(currHour + ":00");
         btnTimePicker.setOnClickListener(this);
 
@@ -79,9 +77,9 @@ public class TriggerDate1 extends AppCompatActivity implements  View.OnClickList
         if (v == btnTimePicker) {
 
             // Get Current Time
-            final Calendar c = Calendar.getInstance();
-            mHour = c.get(Calendar.HOUR_OF_DAY);
-            mMinute = c.get(Calendar.MINUTE);
+//            final Calendar c = Calendar.getInstance();
+//            mHour = c.get(Calendar.HOUR_OF_DAY);
+//            mMinute = c.get(Calendar.MINUTE);
 
             // Launch Time Picker Dialog
             TimePickerDialog timePickerDialog = new TimePickerDialog(this,
@@ -92,7 +90,6 @@ public class TriggerDate1 extends AppCompatActivity implements  View.OnClickList
                                               int minute) {
                             if (minute < 10) txtTime.setText(hourOfDay + ":0" + minute);
                             else txtTime.setText(hourOfDay + ":" + minute);
-
                             mHour = hourOfDay;
                             mMinute = minute;
                         }
