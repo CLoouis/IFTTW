@@ -40,36 +40,36 @@ public class TriggerDate1 extends AppCompatActivity implements  View.OnClickList
 
         final AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
-        btnTimePicker = (Button)findViewById(R.id.button5);
-        txtTime = (EditText)findViewById(R.id.editText2);
+        btnTimePicker = findViewById(R.id.button5);
+        txtTime = findViewById(R.id.editText2);
         txtTime.setEnabled(false);
         txtTime.setText(currHour + ":00");
         btnTimePicker.setOnClickListener(this);
 
-        btnConfirm = (Button)findViewById(R.id.confirmbtn);
+        btnConfirm = findViewById(R.id.confirmbtn);
         btnConfirm.setOnClickListener(this);
 
-        ToggleButton alarmToggle = findViewById(R.id.CheckTrigger1);
-        Intent notifyIntent = new Intent(this, NotificationReceiver.class);
-        final PendingIntent alarmUp = PendingIntent.getBroadcast(this, 1, notifyIntent,
-                PendingIntent.FLAG_NO_CREATE);
-        alarmToggle.setChecked(alarmUp != null);
-
-        alarmToggle.setOnCheckedChangeListener(
-                new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                        String toastMassage;
-                        if (isChecked) {
-                            toastMassage = "Stand up Alarm On";
-                        } else {
-                            alarmManager.cancel(alarmUp);
-                            toastMassage = "Stand up Alarm Off";
-                        }
-                        Toast.makeText(TriggerDate1.this, toastMassage, Toast.LENGTH_SHORT).show();
-                    }
-                }
-        );
+//        ToggleButton alarmToggle = findViewById(R.id.CheckTrigger1);
+//        Intent notifyIntent = new Intent(this, NotificationReceiver.class);
+//        final PendingIntent alarmUp = PendingIntent.getBroadcast(this, 1, notifyIntent,
+//                PendingIntent.FLAG_NO_CREATE);
+//        alarmToggle.setChecked(alarmUp != null);
+//
+//        alarmToggle.setOnCheckedChangeListener(
+//                new CompoundButton.OnCheckedChangeListener() {
+//                    @Override
+//                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+//                        String toastMassage;
+//                        if (isChecked) {
+//                            toastMassage = "Stand up Alarm On";
+//                        } else {
+//                            alarmManager.cancel(alarmUp);
+//                            toastMassage = "Stand up Alarm Off";
+//                        }
+//                        Toast.makeText(TriggerDate1.this, toastMassage, Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//        );
     }
 
     @Override
@@ -97,31 +97,31 @@ public class TriggerDate1 extends AppCompatActivity implements  View.OnClickList
             timePickerDialog.show();
         }
         if (v == btnConfirm) {
-            callTimer(mHour, mMinute);
+//            callTimer(mHour, mMinute);
             launchConfirmation(v);
         }
     }
 
-    public void callTimer(int mHour, int mMinute) {
-        Calendar calSet = Calendar.getInstance();
-        calSet.set(Calendar.HOUR_OF_DAY, mHour);
-        calSet.set(Calendar.MINUTE, mMinute);
-        calSet.set(Calendar.SECOND, 0);
-        calSet.set(Calendar.MILLISECOND, 0);
-
-        Intent timerModuleIntent = new Intent(this, TimerReceiver.class);
-        timerModuleIntent.putExtra("type", 1);
-        timerModuleIntent.putExtra("date", calSet.getTimeInMillis());
-
-        final PendingIntent notifyPendingIntent = PendingIntent.getBroadcast
-                (this, 0, timerModuleIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        try {
-            notifyPendingIntent.send();
-        } catch (PendingIntent.CanceledException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void callTimer(int mHour, int mMinute) {
+//        Calendar calSet = Calendar.getInstance();
+//        calSet.set(Calendar.HOUR_OF_DAY, mHour);
+//        calSet.set(Calendar.MINUTE, mMinute);
+//        calSet.set(Calendar.SECOND, 0);
+//        calSet.set(Calendar.MILLISECOND, 0);
+//
+//        Intent timerModuleIntent = new Intent(this, TimerReceiver.class);
+//        timerModuleIntent.putExtra("type", 1);
+//        timerModuleIntent.putExtra("date", calSet.getTimeInMillis());
+//
+//        final PendingIntent notifyPendingIntent = PendingIntent.getBroadcast
+//                (this, 0, timerModuleIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//        try {
+//            notifyPendingIntent.send();
+//        } catch (PendingIntent.CanceledException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public void launchConfirmation(View view) {
         Intent intent = new Intent(this, create_routine.class);

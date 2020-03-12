@@ -27,10 +27,8 @@ public class NotificationReceiver extends BroadcastReceiver {
         // if action type = 1 -> push notification
         // action type = 2 -> turn on wifi
         // action type = 3 -> turn off wifi
-//        Log.d("value", "masuk Notif receiver");
         int actionType = intent.getIntExtra("actionType", 0);
         if (actionType == 1) {
-            Log.d("value", "masuk Notif receiver");
             int NOTIFICATION_ID =  intent.getIntExtra("idRoutine", 0);
             String title = intent.getStringExtra("title");
             String description = intent.getStringExtra("description");

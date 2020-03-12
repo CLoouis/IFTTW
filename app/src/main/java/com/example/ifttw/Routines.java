@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey;
 public class Routines {
 
     @PrimaryKey
-    long idRoutine;
+    int idRoutine;
 
     @ColumnInfo(name = "triggerType")
     private int triggerType;
@@ -41,10 +41,10 @@ public class Routines {
     @ColumnInfo(name = "status")
     private int status;
 
-    public long getIdRoutine() {
+    public int getIdRoutine() {
         return idRoutine;
     }
-    public void setIdRoutine(long idRoutine) {
+    public void setIdRoutine(int idRoutine) {
         this.idRoutine = idRoutine;
     }
     public int getTriggerType() {
