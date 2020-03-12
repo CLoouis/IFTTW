@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class NotificationActivity extends AppCompatActivity {
+//    private Intent intentSource = getIntent();
+    private Bundle bundleAction = new Bundle();
     EditText titleNotification;
     EditText detailNotification;
     Button submit;
@@ -19,9 +21,15 @@ public class NotificationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
+        bundleAction = getIntent().getExtras();
+
         titleNotification = findViewById(R.id.title_notif);
         detailNotification = findViewById(R.id.detail_notif);
         submit = findViewById(R.id.submit);
+
+        bundleAction.putInt("actionType", 1);
+        bundleAction.putString("title", titleNotification.getText().toString());
+        bundleAction.putString("description", detailNotification.getText().toString());
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,8 +43,11 @@ public class NotificationActivity extends AppCompatActivity {
 
     public void goToCreateRoutine(View view) {
         Intent intent = new Intent(this, create_routine.class);
-        intent.putExtra("title", titleNotification.toString());
-        intent.putExtra("detail", detailNotification.toString());
+//        intent.putExtras(intentSource);
+//        intent.putExtra("actionType", 1);
+//        intent.putExtra("title", titleNotification.toString());
+//        intent.putExtra("detail", detailNotification.toString());
+        intent.putExtras(bundleAction);
         startActivity(intent);
     }
 

@@ -2,48 +2,68 @@ package com.example.ifttw;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.drm.DrmStore;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Calendar;
 
 public class create_routine extends AppCompatActivity {
-    private Intent createRoutineIntent = new Intent(this, MainActivity.class);
+//    private Intent createRoutineIntent = new Intent(this, MainActivity.class);
+//    private Intent selectAction;
+    private Bundle routineBundle = new Bundle();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_routine);
 
-        Intent intent = getIntent();
-        int triggerType = intent.getIntExtra("triggerType", 0);
-        int actionType = intent.getIntExtra("actionType", 0);
+        final int triggerType = getIntent().getIntExtra("triggerType", 0);
+        final int actionType = getIntent().getIntExtra("actionType", 0);
 
-        if (triggerType != 0) {
-            createRoutineIntent.putExtra("triggerType", triggerType);
-            if (triggerType == 1) {
-                createRoutineIntent.putExtra("hour", intent.getIntExtra("hour", 0));
-                createRoutineIntent.putExtra("minute", intent.getIntExtra("minute", 0));
-            } else if (triggerType == 2) {
-                createRoutineIntent.putExtra("day", intent.getIntExtra("day", 0));
-                createRoutineIntent.putExtra("hour", intent.getIntExtra("hour", 0));
-                createRoutineIntent.putExtra("minute", intent.getIntExtra("minute", 0));
-            } else if (triggerType == 3) {
-                createRoutineIntent.putExtra("year", intent.getIntExtra("year", 0));
-                createRoutineIntent.putExtra("month", intent.getIntExtra("month", 0));
-                createRoutineIntent.putExtra("day", intent.getIntExtra("day", 0));
-                createRoutineIntent.putExtra("hour", intent.getIntExtra("hour", 0));
-                createRoutineIntent.putExtra("minute", intent.getIntExtra("minute", 0));
-            }
+        if (triggerType != 0 && actionType == 0) {
+            routineBundle = getIntent().getExtras();
+//            Log.d("value", routineBundle.getString("hour"));
+//            Log.d("value", routineBundle.getString("month"));
+//            Log.d("value", routineBundle.getString("day"));
+//            Log.d("value", routineBundle.getString("hour"));
+//            Log.d("value", routineBundle.getString("minute"));
+//            createRoutineIntent.putExtra("triggerType", triggerType);
+//            if (triggerType == 1) {
+//                createRoutineIntent.putExtra("hour", intent.getIntExtra("hour", 0));
+//                createRoutineIntent.putExtra("minute", intent.getIntExtra("minute", 0));
+//            } else if (triggerType == 2) {
+//                createRoutineIntent.putExtra("day", intent.getIntExtra("day", 0));
+//                createRoutineIntent.putExtra("hour", intent.getIntExtra("hour", 0));
+//                createRoutineIntent.putExtra("minute", intent.getIntExtra("minute", 0));
+//            } else if (triggerType == 3) {
+//                createRoutineIntent.putExtra("year", intent.getIntExtra("year", 0));
+//                createRoutineIntent.putExtra("month", intent.getIntExtra("month", 0));
+//                createRoutineIntent.putExtra("day", intent.getIntExtra("day", 0));
+//                createRoutineIntent.putExtra("hour", intent.getIntExtra("hour", 0));
+//                createRoutineIntent.putExtra("minute", intent.getIntExtra("minute", 0));
+//            }
+//            selectAction = new Intent(this, ActionActivity.class);
+////            if (actionType == 0){
+////                selectAction.putExtras(intent);
+////            }
         }
 
         if (actionType != 0) {
-            createRoutineIntent.putExtra("actionType", actionType);
-            if (actionType == 1) {
-                   createRoutineIntent.putExtra("title", "");
-                   createRoutineIntent.putExtra("detail", "");
-            }
+            routineBundle = getIntent().getExtras();
+//            createRoutineIntent.putExtra("actionType", actionType);
+//            if (actionType == 1) {
+//                   createRoutineIntent.putExtra("title", "");
+//                   createRoutineIntent.putExtra("detail", "");
+//            }
         }
 
         ImageView plus_bttn = findViewById(R.id.plusbttn);
@@ -62,10 +82,22 @@ public class create_routine extends AppCompatActivity {
         } else if (actionType == 3) {
             what.setText("Turn Off Wifi");
         }
+
         what.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 launchActionActivity(v);
+            }
+        });
+
+        Button data = findViewById(R.id.checkData);
+        data.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String toastMessage = "triggerType" + triggerType + "title, desc" + routineBundle.getString("title") + routineBundle.getString("description") + "actionType" + routineBundle.getInt("actionType");
+                Toast.makeText(create_routine.this, toastMessage, Toast.LENGTH_SHORT).show();
+                createRoutine();
+                goToHome(v);
             }
         });
     }
@@ -77,12 +109,54 @@ public class create_routine extends AppCompatActivity {
 
     public void launchActionActivity(View v) {
         Intent intent = new Intent(this, ActionActivity.class);
+        intent.putExtras(routineBundle);
         startActivity(intent);
     }
 
-    public void createRoutine(View v) {
-        // create Routine and return to Home
+    public void goToHome(View v) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
+    public void createRoutine() {
+        Log.d("value", "masuk create Routine");
+        int triggerType = routineBundle.getInt("triggerType");
+
+        if (triggerType == 1 || triggerType == 2 || triggerType == 3) {
+            Intent triggerTimer = new Intent(this, TimerReceiver.class);
+            Calendar calSet = Calendar.getInstance();
+            if (triggerType == 1) {
+                calSet.set(Calendar.HOUR,routineBundle.getInt("hour"));
+                calSet.set(Calendar.MINUTE,routineBundle.getInt("minute"));
+                calSet.set(Calendar.SECOND, 0);
+                calSet.set(Calendar.MILLISECOND, 0);
+            } else if (triggerType == 2) {
+                // do nothing
+                calSet.set(Calendar.HOUR,routineBundle.getInt("hour"));
+                calSet.set(Calendar.MINUTE,routineBundle.getInt("minute"));
+                calSet.set(Calendar.SECOND, 0);
+                calSet.set(Calendar.MILLISECOND, 0);
+            } else if (triggerType == 3) {
+                calSet.set(Calendar.YEAR, routineBundle.getInt("year"));
+                calSet.set(Calendar.MONTH, routineBundle.getInt("month"));
+                calSet.set(Calendar.DAY_OF_MONTH, routineBundle.getInt("day"));
+
+                calSet.set(Calendar.HOUR_OF_DAY,routineBundle.getInt("hour"));
+                calSet.set(Calendar.MINUTE,routineBundle.getInt("minute"));
+                calSet.set(Calendar.SECOND, 0);
+                calSet.set(Calendar.MILLISECOND, 0);
+            }
+            routineBundle.putLong("date", calSet.getTimeInMillis());
+            triggerTimer.putExtras(routineBundle);
+            PendingIntent triggerTimerPendingIntent = PendingIntent.getBroadcast(
+                    this, 0, triggerTimer, PendingIntent.FLAG_UPDATE_CURRENT
+            );
+            try {
+                triggerTimerPendingIntent.send();
+            } catch (PendingIntent.CanceledException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
 

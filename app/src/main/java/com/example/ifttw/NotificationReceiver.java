@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.provider.Settings;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
@@ -16,7 +17,7 @@ import com.example.ifttw.date.TriggerDate3;
 import static androidx.core.app.ActivityCompat.startActivityForResult;
 
 public class NotificationReceiver extends BroadcastReceiver {
-    private NotificationManager mNotificationManager;
+//    private NotificationManager mNotificationManager;
     private static final String PRIMARY_CHANNEL_ID =
             "primary_notification_channel";
 
@@ -26,8 +27,10 @@ public class NotificationReceiver extends BroadcastReceiver {
         // if action type = 1 -> push notification
         // action type = 2 -> turn on wifi
         // action type = 3 -> turn off wifi
+//        Log.d("value", "masuk Notif receiver");
         int actionType = intent.getIntExtra("actionType", 0);
         if (actionType == 1) {
+            Log.d("value", "masuk Notif receiver");
             int NOTIFICATION_ID =  intent.getIntExtra("idRoutine", 0);
             String title = intent.getStringExtra("title");
             String description = intent.getStringExtra("description");
@@ -35,18 +38,20 @@ public class NotificationReceiver extends BroadcastReceiver {
             deliverNotification(context, NOTIFICATION_ID, title, description);
         } else if (actionType == 2) {
             turnOnWifi(context);
-        } else {
+        } else if (actionType == 3){
             turnOffWifi(context);
+        } else {
+            deliverNotification(context, 0, "Aneh", "ada yang salah");
         }
 
     }
 
     private void deliverNotification(Context context, int NOTIFICATION_ID, String title, String description) {
         // Create a notification with NOTIFICATION_ID (id routine) and given title + description
-        mNotificationManager = (NotificationManager)
+        NotificationManager mNotificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        Intent contentIntent = new Intent(context, TriggerDate3.class);
+        Intent contentIntent = new Intent(context, MainActivity.class);
         PendingIntent contentPendingIntent = PendingIntent.getActivity
                 (context, NOTIFICATION_ID, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
