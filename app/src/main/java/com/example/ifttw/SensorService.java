@@ -145,7 +145,7 @@ public class SensorService extends Service implements SensorEventListener {
     public void onSensorChanged(SensorEvent event) {
         float currentValue = event.values[0];
         Log.d("value" , Float.toString(currentValue));
-        if (currentValue < 5) {
+        if (currentValue < 4) {
             Toast.makeText(this, "Near", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Far", Toast.LENGTH_SHORT).show();

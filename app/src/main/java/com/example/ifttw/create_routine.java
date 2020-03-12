@@ -19,31 +19,31 @@ public class create_routine extends AppCompatActivity {
         int triggerType = intent.getIntExtra("triggerType", 0);
         int actionType = intent.getIntExtra("actionType", 0);
 
-        if (triggerType != 0) {
-            createRoutineIntent.putExtra("triggerType", triggerType);
-            if (triggerType == 1) {
-                createRoutineIntent.putExtra("hour", intent.getIntExtra("hour", 0));
-                createRoutineIntent.putExtra("minute", intent.getIntExtra("minute", 0));
-            } else if (triggerType == 2) {
-                createRoutineIntent.putExtra("day", intent.getIntExtra("day", 0));
-                createRoutineIntent.putExtra("hour", intent.getIntExtra("hour", 0));
-                createRoutineIntent.putExtra("minute", intent.getIntExtra("minute", 0));
-            } else if (triggerType == 3) {
-                createRoutineIntent.putExtra("year", intent.getIntExtra("year", 0));
-                createRoutineIntent.putExtra("month", intent.getIntExtra("month", 0));
-                createRoutineIntent.putExtra("day", intent.getIntExtra("day", 0));
-                createRoutineIntent.putExtra("hour", intent.getIntExtra("hour", 0));
-                createRoutineIntent.putExtra("minute", intent.getIntExtra("minute", 0));
-            }
-        }
-
-        if (actionType != 0) {
-            createRoutineIntent.putExtra("actionType", actionType);
-            if (actionType == 1) {
-                   createRoutineIntent.putExtra("title", "");
-                   createRoutineIntent.putExtra("detail", "");
-            }
-        }
+//        if (triggerType != 0) {
+//            createRoutineIntent.putExtra("triggerType", triggerType);
+//            if (triggerType == 1) {
+//                createRoutineIntent.putExtra("hour", intent.getIntExtra("hour", 0));
+//                createRoutineIntent.putExtra("minute", intent.getIntExtra("minute", 0));
+//            } else if (triggerType == 2) {
+//                createRoutineIntent.putExtra("day", intent.getIntExtra("day", 0));
+//                createRoutineIntent.putExtra("hour", intent.getIntExtra("hour", 0));
+//                createRoutineIntent.putExtra("minute", intent.getIntExtra("minute", 0));
+//            } else if (triggerType == 3) {
+//                createRoutineIntent.putExtra("year", intent.getIntExtra("year", 0));
+//                createRoutineIntent.putExtra("month", intent.getIntExtra("month", 0));
+//                createRoutineIntent.putExtra("day", intent.getIntExtra("day", 0));
+//                createRoutineIntent.putExtra("hour", intent.getIntExtra("hour", 0));
+//                createRoutineIntent.putExtra("minute", intent.getIntExtra("minute", 0));
+//            }
+//        }
+//
+//        if (actionType != 0) {
+//            createRoutineIntent.putExtra("actionType", actionType);
+//            if (actionType == 1) {
+//                   createRoutineIntent.putExtra("title", "");
+//                   createRoutineIntent.putExtra("detail", "");
+//            }
+//        }
 
         ImageView plus_bttn = findViewById(R.id.plusbttn);
         plus_bttn.setOnClickListener(new View.OnClickListener() {

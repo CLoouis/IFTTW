@@ -1,6 +1,7 @@
 package com.example.ifttw.ui.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,7 +16,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.ifttw.Dummy;
+import com.example.ifttw.MainActivity;
 import com.example.ifttw.R;
+import com.example.ifttw.create_routine;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -51,6 +55,13 @@ public class PlaceholderFragment extends Fragment {
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
         final TextView textView = root.findViewById(R.id.section_label);
+        Button dummy = root.findViewById(R.id.button_main);
+        dummy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               goToDummy(v);
+            }
+        });
         pageViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -74,5 +85,10 @@ public class PlaceholderFragment extends Fragment {
             }
         });
         return root;
+    }
+
+    public void goToDummy(View v) {
+        Intent intent = new Intent(getActivity(), Dummy.class);
+        startActivity(intent);
     }
 }
