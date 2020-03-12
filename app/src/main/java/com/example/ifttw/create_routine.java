@@ -131,17 +131,22 @@ public class create_routine extends AppCompatActivity {
             routineBundle.putInt("idRoutine", idRoutine);
 
             if (triggerType == 1) {
-                calSet.set(Calendar.HOUR,routineBundle.getInt("hour"));
+
+                calSet.set(Calendar.HOUR_OF_DAY,routineBundle.getInt("hour"));
                 calSet.set(Calendar.MINUTE,routineBundle.getInt("minute"));
                 calSet.set(Calendar.SECOND, 0);
                 calSet.set(Calendar.MILLISECOND, 0);
+
             } else if (triggerType == 2) {
-                // do nothing
-                calSet.set(Calendar.HOUR,routineBundle.getInt("hour"));
+
+                calSet.set(Calendar.DAY_OF_MONTH, routineBundle.getInt("day"));
+                calSet.set(Calendar.HOUR_OF_DAY,routineBundle.getInt("hour"));
                 calSet.set(Calendar.MINUTE,routineBundle.getInt("minute"));
                 calSet.set(Calendar.SECOND, 0);
                 calSet.set(Calendar.MILLISECOND, 0);
+
             } else if (triggerType == 3) {
+
                 calSet.set(Calendar.YEAR, routineBundle.getInt("year"));
                 calSet.set(Calendar.MONTH, routineBundle.getInt("month"));
                 calSet.set(Calendar.DAY_OF_MONTH, routineBundle.getInt("day"));
@@ -150,6 +155,7 @@ public class create_routine extends AppCompatActivity {
                 calSet.set(Calendar.MINUTE,routineBundle.getInt("minute"));
                 calSet.set(Calendar.SECOND, 0);
                 calSet.set(Calendar.MILLISECOND, 0);
+
             }
             routineBundle.putLong("date", calSet.getTimeInMillis());
             triggerTimer.putExtras(routineBundle);
