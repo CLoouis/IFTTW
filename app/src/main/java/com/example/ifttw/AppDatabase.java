@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase;
 import com.example.ifttw.Routines;
 import com.example.ifttw.RoutinesDAO;
 
-@Database(entities = {Routines.class}, version = 1)
+@Database(entities = {Routines.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract RoutinesDAO userDao();
 }

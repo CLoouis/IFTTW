@@ -22,8 +22,8 @@ public interface RoutinesDAO {
     @Query("UPDATE Routines SET status=:newStatus WHERE idRoutine = :id")
     public void update(int newStatus, long id);
 
-    @Query("INSERT INTO Routines VALUES (:idRoutine, :triggerType, :year, :month, :hour, :minute, :actionType, :title, :description, :status)")
-    public void insert(long idRoutine, int triggerType, int year, int month, int hour, int minute, int actionType, String title, String description, int status);
+    @Query("INSERT INTO Routines VALUES (:idRoutine, :triggerType, :year, :month, :day, :hour, :minute, :actionType, :title, :description, :status)")
+    public void insert(long idRoutine, int triggerType, int year, int month, int day, int hour, int minute, int actionType, String title, String description, int status);
 
     @Query("DELETE FROM Routines WHERE idRoutine = :idRoutine")
     public void deleteUsers(long idRoutine);

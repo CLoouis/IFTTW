@@ -38,11 +38,11 @@ public class DummyDetailActivity extends AppCompatActivity {
         listRoutine = db.userDao().getAll();
 
 
-        //just checking data from db
-        for (int i = 0 ; i < listRoutine.size(); i++) {
-            Log.e("Aplikasi",listRoutine.get(i).getCondition()+i);
-            Log.e("Aplikasi",listRoutine.get(i).getAction()+i);
-        }
+//        //just checking data from db
+//        for (int i = 0 ; i < listRoutine.size(); i++) {
+//            Log.e("Aplikasi",listRoutine.get(i).getCondition()+i);
+//            Log.e("Aplikasi",listRoutine.get(i).getAction()+i);
+//        }
     }
     private void initRecyclerView() {
         myRecyclerview.setHasFixedSize(true);

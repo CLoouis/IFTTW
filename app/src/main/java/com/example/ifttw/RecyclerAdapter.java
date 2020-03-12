@@ -57,8 +57,8 @@ public class RecyclerAdapter extends  RecyclerView.Adapter<RecyclerAdapter.MyVie
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Routines album = routinesList.get(position);
-        holder.kondisi.setText(album.getCondition());
-        holder.aksi.setText(album.getAction());
+//        holder.kondisi.setText(album.getCondition());
+//        holder.aksi.setText(album.getAction());
     }
 
     @Override

@@ -86,5 +86,25 @@ public class Routines {
     public int getActionType() {
         return actionType;
     }
-
+    public void setActionType(int actionType) {
+        this.actionType = actionType;
+    }
+    public int getStatus() {
+        return status;
+    }
+    public void setStatus(int status) {
+        this.status = status;
+    }
+    public String getTitle() {
+        return title;
+    }
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

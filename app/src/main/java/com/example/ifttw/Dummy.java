@@ -14,7 +14,7 @@ import com.example.ifttw.Routines;
 import static com.example.ifttw.MyApp.db;
 
 
-public class Dummy extends AppCompatActivity implements View.OnClickListener {
+public class Dummy extends AppCompatActivity {
 
     Routines rutin;
     EditText aksi;
@@ -30,19 +30,19 @@ public class Dummy extends AppCompatActivity implements View.OnClickListener {
         kondisi = findViewById(R.id.kondisi);
         insert = findViewById(R.id.insert);
 
-        insert.setOnClickListener(this);
+//        insert.setOnClickListener(this);
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v == insert) {
-            rutin = new Routines();
-            rutin.setAction(aksi.getText().toString());
-            rutin.setCondition(kondisi.getText().toString());
-            // Insert rutin to database
-            db.userDao().insertAll(rutin);
-            startActivity(new Intent(this, DummyDetailActivity.class));
-        }
-    }
+//    @Override
+//    public void onClick(View v) {
+//        if (v == insert) {
+//            rutin = new Routines();
+//            rutin.setAction(aksi.getText().toString());
+//            rutin.setCondition(kondisi.getText().toString());
+//            // Insert rutin to database
+//            db.userDao().insertAll(rutin);
+//            startActivity(new Intent(this, DummyDetailActivity.class));
+//        }
+//    }
 }
 
