@@ -9,13 +9,22 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.ifttw.ui.main.SectionsPagerAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.example.ifttw.MyApp.db;
 
 public class MainActivity extends AppCompatActivity {
     private NotificationManager mNotificationManager;
@@ -31,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
+
         FloatingActionButton fab = findViewById(R.id.fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -73,4 +83,5 @@ public class MainActivity extends AppCompatActivity {
 //        Log.d(LOG_TAG, "Button clicked!");
         startActivity(intent);
     }
+
 }

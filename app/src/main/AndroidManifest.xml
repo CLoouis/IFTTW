@@ -15,7 +15,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DummyDetailActivity"></activity>
+        <activity android:name=".DetailRoutine">
+            android:label="Detail Routine"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ifttw.DetailRoutine" />
+        </activity>
+
         <activity android:name=".Dummy" />
         <activity
             android:name=".SensorActivity"

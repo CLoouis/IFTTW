@@ -30,7 +30,6 @@ public class Dummy extends AppCompatActivity {
         kondisi = findViewById(R.id.kondisi);
         insert = findViewById(R.id.insert);
 
-//        insert.setOnClickListener(this);
     }
 
 //    @Override
@@ -39,8 +38,8 @@ public class Dummy extends AppCompatActivity {
 //            rutin = new Routines();
 //            rutin.setAction(aksi.getText().toString());
 //            rutin.setCondition(kondisi.getText().toString());
-//            // Insert rutin to database
-//            db.userDao().insertAll(rutin);
+            // Insert rutin to database
+
 //            startActivity(new Intent(this, DummyDetailActivity.class));
 //        }
 //    }

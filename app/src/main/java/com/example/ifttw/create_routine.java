@@ -127,7 +127,7 @@ public class create_routine extends AppCompatActivity {
         if (triggerType == 1 || triggerType == 2 || triggerType == 3) {
             Intent triggerTimer = new Intent(this, TimerReceiver.class);
             Calendar calSet = Calendar.getInstance();
-            int idRoutine = (int) calSet.getTimeInMillis() % 1000000000;
+            int idRoutine = (int) (calSet.getTimeInMillis() % 1000000000);
             routineBundle.putInt("idRoutine", idRoutine);
 
             if (triggerType == 1) {
