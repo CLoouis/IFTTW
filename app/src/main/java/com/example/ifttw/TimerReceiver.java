@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.core.app.ActivityCompat;
+
 import java.util.Calendar;
 
 import static android.content.Context.ALARM_SERVICE;
@@ -20,6 +22,7 @@ public class TimerReceiver extends BroadcastReceiver implements ActionModule {
     @Override
     public void onReceive(Context context, Intent intent) {
         alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+        int idRoutine = intent.getIntExtra("idRoutine", 0);
         long dateFromIntent = intent.getLongExtra("date", 0);
         datePicked = Calendar.getInstance();
         datePicked.setTimeInMillis(dateFromIntent);
@@ -28,8 +31,7 @@ public class TimerReceiver extends BroadcastReceiver implements ActionModule {
         int actionType = intent.getIntExtra("actionType", 0);
 
         if (actionType == 1) {
-            Log.d("value", "masuk timer receiver");
-            pushNotification(context, 0, intent.getStringExtra("title"), intent.getStringExtra("description"));
+            pushNotification(context, idRoutine, intent.getStringExtra("title"), intent.getStringExtra("description"));
         }
     }
 
@@ -41,7 +43,7 @@ public class TimerReceiver extends BroadcastReceiver implements ActionModule {
         intent.putExtra("description", detail);
 
         final PendingIntent notifyPendingIntent = PendingIntent.getBroadcast
-                (context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                (context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (type == 1) {
             alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
@@ -50,16 +52,42 @@ public class TimerReceiver extends BroadcastReceiver implements ActionModule {
             alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
                     datePicked.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, notifyPendingIntent);
         } else if (type == 3) {
-            Log.d("value", "masuk push notif");
-            Calendar now = Calendar.getInstance();
-            Log.d("value", now.getTimeInMillis() + " " + datePicked.getTimeInMillis());
             alarmManager.setExact(AlarmManager.RTC_WAKEUP,
                     datePicked.getTimeInMillis(), notifyPendingIntent);
-//            try {
-//                notifyPendingIntent.send();
-//            } catch (PendingIntent.CanceledException e) {
-//                e.printStackTrace();
-//            }
+        }
+    }
+
+    @Override
+    public void turnOnWifi(Context context, int id) {
+        Intent intent = new Intent(context, NotificationReceiver.class);
+        intent.putExtra("idRoutine", id);
+        intent.putExtra("actionType", 2);
+
+        final PendingIntent turnOnPendingIntent = PendingIntent.getBroadcast(
+                context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT
+        );
+
+        try {
+            turnOnPendingIntent.send();
+        } catch (PendingIntent.CanceledException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void turnOffWifi(Context context, int id) {
+        Intent intent = new Intent(context, NotificationReceiver.class);
+        intent.putExtra("idRoutine", id);
+        intent.putExtra("actionType", 3);
+
+        final PendingIntent turnOnPendingIntent = PendingIntent.getBroadcast(
+                context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT
+        );
+
+        try {
+            turnOnPendingIntent.send();
+        } catch (PendingIntent.CanceledException e) {
+            e.printStackTrace();
         }
     }
 }

@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+import static com.example.ifttw.MyApp.db;
+
 public class create_routine extends AppCompatActivity {
 //    private Intent createRoutineIntent = new Intent(this, MainActivity.class);
 //    private Intent selectAction;
@@ -97,6 +99,7 @@ public class create_routine extends AppCompatActivity {
                 String toastMessage = "triggerType" + triggerType + "title, desc" + routineBundle.getString("title") + routineBundle.getString("description") + "actionType" + routineBundle.getInt("actionType");
                 Toast.makeText(create_routine.this, toastMessage, Toast.LENGTH_SHORT).show();
                 createRoutine();
+                insertRoutineToDatabase();
                 goToHome(v);
             }
         });
@@ -119,12 +122,14 @@ public class create_routine extends AppCompatActivity {
     }
 
     public void createRoutine() {
-        Log.d("value", "masuk create Routine");
         int triggerType = routineBundle.getInt("triggerType");
 
         if (triggerType == 1 || triggerType == 2 || triggerType == 3) {
             Intent triggerTimer = new Intent(this, TimerReceiver.class);
             Calendar calSet = Calendar.getInstance();
+            int idRoutine = (int) calSet.getTimeInMillis() % 1000000000;
+            routineBundle.putInt("idRoutine", idRoutine);
+
             if (triggerType == 1) {
                 calSet.set(Calendar.HOUR,routineBundle.getInt("hour"));
                 calSet.set(Calendar.MINUTE,routineBundle.getInt("minute"));
@@ -157,6 +162,21 @@ public class create_routine extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void insertRoutineToDatabase() {
+        db.userDao().insert(routineBundle.getInt("idRoutine"),
+                routineBundle.getInt("triggerType"),
+                routineBundle.getInt("year"),
+                routineBundle.getInt("month"),
+                routineBundle.getInt("day"),
+                routineBundle.getInt("hour"),
+                routineBundle.getInt("minute"),
+                routineBundle.getInt("actionType"),
+                routineBundle.getString("title"),
+                routineBundle.getString("description"),
+                1
+                );
     }
 }
 
