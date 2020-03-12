@@ -13,7 +13,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NotificationActivity"></activity>
+        <receiver
+            android:name=".TimerReceiver"
+            android:enabled="true"
+            android:exported="false" />
+        <receiver
+            android:name=".NotificationReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
+        <activity android:name=".NotificationActivity" />
         <activity android:name=".ActionActivity" />
         <activity
             android:name=".date.TriggerDate3"

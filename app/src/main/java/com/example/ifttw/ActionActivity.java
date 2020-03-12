@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class ActionActivity extends AppCompatActivity {
+    private Bundle bundleSource = new Bundle();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,10 +22,13 @@ public class ActionActivity extends AppCompatActivity {
                 launchNotificationActivity(view);
             }
         });
+
+        bundleSource = getIntent().getExtras();
     }
 
     public void launchNotificationActivity(View view) {
         Intent intent = new Intent(this, NotificationActivity.class);
+        intent.putExtras(bundleSource);
         startActivity(intent);
     }
 }
