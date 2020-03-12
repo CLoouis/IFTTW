@@ -76,7 +76,11 @@ public class TriggerDate2 extends AppCompatActivity implements View.OnClickListe
         }
 
         public void launchConfirmation(View view) {
-            Intent intent = new Intent(this, CreateRoutine.class);
+            Intent intent = new Intent(this, create_routine.class);
+            intent.putExtra("triggerType", 2);
+            intent.putExtra("day", mDay);
+            intent.putExtra("hour", mHour);
+            intent.putExtra("minute", mMinute);
             startActivity(intent);
         }
     }
