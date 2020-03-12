@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,21 +16,37 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
+import com.example.ifttw.AppDatabase;
+import com.example.ifttw.DetailRoutine;
 import com.example.ifttw.Dummy;
-import com.example.ifttw.DummyDetailActivity;
 import com.example.ifttw.MainActivity;
 import com.example.ifttw.R;
+import com.example.ifttw.RecyclerAdapter;
+import com.example.ifttw.Routines;
 import com.example.ifttw.create_routine;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.example.ifttw.MyApp.db;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class PlaceholderFragment extends Fragment {
+public class PlaceholderFragment extends Fragment implements RecyclerAdapter.OnEventListener {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
-    private PageViewModel pageViewModel;
+    private RecyclerView myRecyclerview;
+    private RecyclerAdapter recyclerAdapter;
+    private List<Routines> listRoutine = new ArrayList<>();
+
+
+//    private PageViewModel pageViewModel;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -42,12 +59,12 @@ public class PlaceholderFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
-        int index = 1;
-        if (getArguments() != null) {
-            index = getArguments().getInt(ARG_SECTION_NUMBER);
-        }
-        pageViewModel.setIndex(index);
+//        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
+//        int index = 1;
+//        if (getArguments() != null) {
+//            index = getArguments().getInt(ARG_SECTION_NUMBER);
+//        }
+//        pageViewModel.setIndex(index);
     }
 
     @Override
@@ -55,41 +72,43 @@ public class PlaceholderFragment extends Fragment {
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
-        final TextView textView = root.findViewById(R.id.section_label);
-        Button dummy = root.findViewById(R.id.button_main);
-        dummy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               goToDummy(v);
-            }
-        });
-        pageViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        Button btntOn = (Button)root.findViewById(R.id.btnOn);
-        Button btntOff = (Button)root.findViewById(R.id.btnOFF);
-        btntOn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                WifiManager wmgr = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                wmgr.setWifiEnabled(true);
-            }
-        });
-        btntOff.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                WifiManager wmgr = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                wmgr.setWifiEnabled(false);
-            }
-        });
-        return root;
+        myRecyclerview = root.findViewById(R.id.recycler_view);
+
+        fetchDataFromRoom();
+        initRecyclerView();
+        setAdapter();
+
+        return  root;
     }
 
-    public void goToDummy(View v) {
-        Intent intent = new Intent(getActivity(), DummyDetailActivity.class);
+    private void fetchDataFromRoom() {
+        db = Room.databaseBuilder(getActivity().getApplicationContext(),
+                AppDatabase.class,"Routines").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+        listRoutine = db.userDao().getAll();
+        Log.d("size : ", Integer.toString(listRoutine.size()));
+
+    }
+    private void initRecyclerView() {
+        myRecyclerview.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        myRecyclerview.setLayoutManager(llm);
+
+        recyclerAdapter =new RecyclerAdapter(getActivity(),listRoutine, this);
+    }
+    private void setAdapter() {
+        myRecyclerview.setAdapter(recyclerAdapter);
+    }
+
+    @Override
+    public void onEventClick(int position) {
+        Routines row = listRoutine.get(position);
+        Log.d("row", Integer.toString(row.getIdRoutine()));
+        Intent intent = new Intent(getActivity(), DetailRoutine.class);
+        intent.putExtra("idRoutine", row.getIdRoutine());
+        intent.putExtra("triggerType", row.getTriggerType());
+        intent.putExtra("actionType", row.getActionType());
+        intent.putExtra("status", row.getStatus());
         startActivity(intent);
     }
 }

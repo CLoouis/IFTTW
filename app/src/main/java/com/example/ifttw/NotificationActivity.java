@@ -28,8 +28,7 @@ public class NotificationActivity extends AppCompatActivity {
         submit = findViewById(R.id.submit);
 
         bundleAction.putInt("actionType", 1);
-        bundleAction.putString("title", titleNotification.getText().toString());
-        bundleAction.putString("description", detailNotification.getText().toString());
+
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,6 +42,8 @@ public class NotificationActivity extends AppCompatActivity {
 
     public void goToCreateRoutine(View view) {
         Intent intent = new Intent(this, create_routine.class);
+        bundleAction.putString("title", titleNotification.getText().toString());
+        bundleAction.putString("description", detailNotification.getText().toString());
 //        intent.putExtras(intentSource);
 //        intent.putExtra("actionType", 1);
 //        intent.putExtra("title", titleNotification.toString());

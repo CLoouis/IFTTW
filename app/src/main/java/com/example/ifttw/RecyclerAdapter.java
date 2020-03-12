@@ -1,12 +1,15 @@
 package com.example.ifttw;
 
 import android.content.Context;
+import android.media.MediaDrm;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -30,28 +33,38 @@ public class RecyclerAdapter extends  RecyclerView.Adapter<RecyclerAdapter.MyVie
 
     private Context mContext;
     private List<Routines> routinesList;
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-
+    private OnEventListener onEventListener;
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        CardView parentLayout;
         TextView triggerTxt, actionTxt, idRoutine, statusTxt;
-        public MyViewHolder(View v) {
+        public MyViewHolder(View v)  {
 
             super(v);
+            parentLayout = v.findViewById(R.id.row_routine);
             idRoutine = (TextView)v.findViewById(R.id.label_idrutin);
             triggerTxt = (TextView)v.findViewById(R.id.label_trigger);
             actionTxt = (TextView)v.findViewById(R.id.label_action);
             statusTxt = (TextView)v.findViewById(R.id.label_status);
+
+            parentLayout.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            onEventListener.onEventClick(getAdapterPosition());
         }
     }
-    public RecyclerAdapter(Context mContext, List<Routines> routinesList) {
+    public RecyclerAdapter(Context mContext, List<Routines> routinesList, OnEventListener onEventListener) {
         this.mContext = mContext;
         this.routinesList = routinesList;
+        this.onEventListener = onEventListener;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recyclerview_layout, parent, false);
+                .inflate(R.layout.row_routine, parent, false);
 
         return new MyViewHolder(itemView);
     }
@@ -60,7 +73,9 @@ public class RecyclerAdapter extends  RecyclerView.Adapter<RecyclerAdapter.MyVie
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Routines album = routinesList.get(position);
 
-        holder.idRoutine.setText((int) album.getIdRoutine());
+        String idTxt =  Integer.toString(album.getIdRoutine()) ;
+        Log.d("idTxt", idTxt);
+        holder.idRoutine.setText(idTxt);
 
         String valueTrigger = null;
         int triggerType = album.getTriggerType();
@@ -86,8 +101,13 @@ public class RecyclerAdapter extends  RecyclerView.Adapter<RecyclerAdapter.MyVie
 
     }
 
+    public interface OnEventListener {
+        void onEventClick(int position);
+    }
+
     @Override
     public int getItemCount() {
         return (routinesList != null) ? routinesList.size() : 0;
     }
 }
+
