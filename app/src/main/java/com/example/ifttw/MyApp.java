@@ -14,7 +14,10 @@ public class MyApp extends Application {
     public void onCreate() {
         super.onCreate();
         db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class,"Routines").allowMainThreadQueries().build();
+                AppDatabase.class,"Routines")
+                .fallbackToDestructiveMigration()
+                .allowMainThreadQueries()
+                .build();
     }
 
 }

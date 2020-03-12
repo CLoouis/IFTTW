@@ -17,6 +17,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.ifttw.Dummy;
+import com.example.ifttw.DummyDetailActivity;
 import com.example.ifttw.MainActivity;
 import com.example.ifttw.R;
 import com.example.ifttw.create_routine;
@@ -88,7 +89,7 @@ public class PlaceholderFragment extends Fragment {
     }
 
     public void goToDummy(View v) {
-        Intent intent = new Intent(getActivity(), Dummy.class);
+        Intent intent = new Intent(getActivity(), DummyDetailActivity.class);
         startActivity(intent);
     }
 }

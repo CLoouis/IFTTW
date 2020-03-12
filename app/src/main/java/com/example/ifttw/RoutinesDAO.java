@@ -17,15 +17,15 @@ public interface RoutinesDAO {
 
     //Example Custom Query
     @Query("SELECT * FROM Routines WHERE idRoutine LIKE :id ")
-    public Routines getById(long id);
+    public Routines getById(int id);
 
     @Query("UPDATE Routines SET status=:newStatus WHERE idRoutine = :id")
-    public void update(int newStatus, long id);
+    public void update(int newStatus, int id);
 
     @Query("INSERT INTO Routines VALUES (:idRoutine, :triggerType, :year, :month, :day, :hour, :minute, :actionType, :title, :description, :status)")
-    public void insert(long idRoutine, int triggerType, int year, int month, int day, int hour, int minute, int actionType, String title, String description, int status);
+    public void insert(int idRoutine, int triggerType, int year, int month, int day, int hour, int minute, int actionType, String title, String description, int status);
 
     @Query("DELETE FROM Routines WHERE idRoutine = :idRoutine")
-    public void deleteUsers(long idRoutine);
+    public void deleteUsers(int idRoutine);
 
 }

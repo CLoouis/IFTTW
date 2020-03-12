@@ -69,7 +69,7 @@ public class SensorActivity extends AppCompatActivity {
 //    }
     public void startService() {
         Intent serviceIntent = new Intent(this, SensorService.class);
-        serviceIntent.putExtra("inputExtra", "Foreground Service Example in Android");
+        serviceIntent.putExtra("inputExtra", "Foreground Sensor Service");
         ContextCompat.startForegroundService(this, serviceIntent);
     }
     public void stopService() {

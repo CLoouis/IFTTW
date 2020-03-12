@@ -16,16 +16,16 @@ import static com.example.ifttw.MyApp.db;
 
 public class DummyDetailActivity extends AppCompatActivity {
 
-    RecyclerView myRecyclerview;
-    RecyclerAdapter recycleAdapter;
-    List<Routines> listRoutine = new ArrayList<>();
+    private RecyclerView myRecyclerview;
+    private RecyclerAdapter recyclerAdapter;
+    private List<Routines> listRoutine = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dummy_detail);
 
-        myRecyclerview = findViewById(R.id.myRecyclerView);
+        myRecyclerview = findViewById(R.id.recycler_view);
 
         fetchDataFromRoom();
         initRecyclerView();
@@ -34,24 +34,18 @@ public class DummyDetailActivity extends AppCompatActivity {
     }
     private void fetchDataFromRoom() {
         db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class,"Routines").allowMainThreadQueries().build();
+                AppDatabase.class,"Routines").allowMainThreadQueries().fallbackToDestructiveMigration().build();
         listRoutine = db.userDao().getAll();
 
-
-//        //just checking data from db
-//        for (int i = 0 ; i < listRoutine.size(); i++) {
-//            Log.e("Aplikasi",listRoutine.get(i).getCondition()+i);
-//            Log.e("Aplikasi",listRoutine.get(i).getAction()+i);
-//        }
     }
     private void initRecyclerView() {
         myRecyclerview.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         myRecyclerview.setLayoutManager(llm);
-        recycleAdapter =new RecyclerAdapter(this,listRoutine);
+        recyclerAdapter =new RecyclerAdapter(this,listRoutine);
     }
     private void setAdapter() {
-        myRecyclerview.setAdapter(recycleAdapter);
+        myRecyclerview.setAdapter(recyclerAdapter);
     }
 }
