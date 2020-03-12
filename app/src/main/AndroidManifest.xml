@@ -16,7 +16,7 @@
         <receiver
             android:name=".TimerReceiver"
             android:enabled="true"
-            android:exported="false"></receiver>
+            android:exported="false" />
         <receiver
             android:name=".NotificationReceiver"
             android:enabled="true"

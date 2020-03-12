@@ -27,14 +27,16 @@ public class NotificationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //                pushNotification();
-                goToHome(view);
+                goToCreateRoutine(view);
             }
         });
 
     }
 
-    public void goToHome(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
+    public void goToCreateRoutine(View view) {
+        Intent intent = new Intent(this, create_routine.class);
+        intent.putExtra("title", titleNotification.toString());
+        intent.putExtra("detail", detailNotification.toString());
         startActivity(intent);
     }
 
