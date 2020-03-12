@@ -32,6 +32,12 @@ public class TimerReceiver extends BroadcastReceiver implements ActionModule {
 
         if (actionType == 1) {
             pushNotification(context, idRoutine, intent.getStringExtra("title"), intent.getStringExtra("description"));
+        } else if (actionType == 2) {
+            turnOnWifi(context, idRoutine);
+        } else if (actionType == 3) {
+            turnOffWifi(context, idRoutine);
+        } else if (actionType == 4) {
+            sendRequest(context, idRoutine);
         }
     }
 
@@ -86,6 +92,23 @@ public class TimerReceiver extends BroadcastReceiver implements ActionModule {
 
         try {
             turnOnPendingIntent.send();
+        } catch (PendingIntent.CanceledException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void sendRequest(Context context, int id) {
+        Intent intent = new Intent(context, NotificationReceiver.class);
+        intent.putExtra("idRoutine", id);
+        intent.putExtra("actionType", 4);
+
+        final PendingIntent sendRequestPendingIntent = PendingIntent.getBroadcast(
+                context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT
+        );
+
+        try {
+            sendRequestPendingIntent.send();
         } catch (PendingIntent.CanceledException e) {
             e.printStackTrace();
         }
