@@ -2,24 +2,20 @@ package com.example.ifttw.date;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TimePicker;
 
 import com.example.ifttw.R;
-import com.example.ifttw.create_routine;
+import com.example.ifttw.CreateRoutine;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class TriggerDate2 extends AppCompatActivity implements View.OnClickListener {
     Button btnConfirm, btnTimePicker;
@@ -80,7 +76,7 @@ public class TriggerDate2 extends AppCompatActivity implements View.OnClickListe
         }
 
         public void launchConfirmation(View view) {
-            Intent intent = new Intent(this, create_routine.class);
+            Intent intent = new Intent(this, CreateRoutine.class);
             startActivity(intent);
         }
     }

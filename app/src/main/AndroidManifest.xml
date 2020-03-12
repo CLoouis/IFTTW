@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -13,7 +14,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NotificationActivity"></activity>
+        <activity
+            android:name=".SensorActivity"
+            android:label="Configure Trigger Sensor"
+            android:parentActivityName=".TriggerActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ifttw.SensorActivity" />
+        </activity>
+
+        <receiver
+            android:name=".TimerReceiver"
+            android:enabled="true"
+            android:exported="false" />
+        <receiver
+            android:name=".NotificationReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
+        <activity android:name=".NotificationActivity" />
         <activity android:name=".ActionActivity" />
         <activity
             android:name=".date.TriggerDate3"
@@ -50,18 +69,18 @@
         <activity
             android:name=".TriggerActivity"
             android:label="@string/trigger"
-            android:parentActivityName=".create_routine">
+            android:parentActivityName=".CreateRoutine">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.ifttw.TriggerActivity" />
         </activity>
         <activity
-            android:name=".create_routine"
+            android:name=".CreateRoutine"
             android:label="@string/page_create_routine"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.ifttw.create_routine" />
+                android:value="com.example.ifttw.CreateRoutine" />
         </activity>
         <activity
             android:name=".MainActivity"
@@ -77,6 +96,13 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <service
+            android:name=".SensorService"
+            android:enabled="true"
+            android:exported="true">
+
+        </service>
     </application>
 
 </manifest>

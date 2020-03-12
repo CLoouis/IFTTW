@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class create_routine extends AppCompatActivity {
+public class CreateRoutine extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
