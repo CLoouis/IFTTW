@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void launchCreateRoutineActivity(View view) {
-        Intent intent = new Intent(this, CreateRoutine.class);
+        Intent intent = new Intent(this, create_routine.class);
 //        Log.d(LOG_TAG, "Button clicked!");
         startActivity(intent);
     }

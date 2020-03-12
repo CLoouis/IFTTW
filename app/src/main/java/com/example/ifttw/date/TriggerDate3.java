@@ -21,7 +21,7 @@ import android.widget.ToggleButton;
 import com.example.ifttw.NotificationReceiver;
 import com.example.ifttw.R;
 import com.example.ifttw.TimerReceiver;
-import com.example.ifttw.CreateRoutine;
+import com.example.ifttw.create_routine;
 
 import java.util.Calendar;
 

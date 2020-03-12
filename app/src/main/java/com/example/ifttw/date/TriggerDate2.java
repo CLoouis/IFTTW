@@ -13,7 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.TimePicker;
 
 import com.example.ifttw.R;
-import com.example.ifttw.CreateRoutine;
+import com.example.ifttw.create_routine;
 
 import java.util.Calendar;
 

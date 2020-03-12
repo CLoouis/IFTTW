@@ -69,18 +69,18 @@
         <activity
             android:name=".TriggerActivity"
             android:label="@string/trigger"
-            android:parentActivityName=".CreateRoutine">
+            android:parentActivityName=".create_routine">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.ifttw.TriggerActivity" />
         </activity>
         <activity
-            android:name=".CreateRoutine"
+            android:name=".create_routine"
             android:label="@string/page_create_routine"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.ifttw.CreateRoutine" />
+                android:value="com.example.ifttw.create_routine" />
         </activity>
         <activity
             android:name=".MainActivity"
