@@ -85,7 +85,7 @@ public class create_routine extends AppCompatActivity {
             triggerWord.setText("Timer 2");
         } else if (routineBundle.getInt("triggerType") == 3) {
             triggerWord.setText("Timer 3");
-        } else if (routineBundle.getInt("triggerType") == 3) {
+        } else if (routineBundle.getInt("triggerType") == 4) {
             triggerWord.setText("Sensor");
         }
 
