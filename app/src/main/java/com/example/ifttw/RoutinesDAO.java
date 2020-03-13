@@ -15,6 +15,12 @@ public interface RoutinesDAO {
     @Query("SELECT * FROM Routines")
     public List<Routines> getAll();
 
+    @Query("SELECT * FROM Routines WHERE status = 1")
+    public List<Routines> getAllActive();
+
+    @Query("SELECT * FROM Routines WHERE status = 0")
+    public List<Routines> getAllInactive();
+
     //Example Custom Query
     @Query("SELECT * FROM Routines WHERE idRoutine LIKE :id ")
     public Routines getById(int id);
