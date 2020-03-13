@@ -47,7 +47,7 @@
         app:layout_constraintTop_toBottomOf="@+id/label_action_detail" />
 
     <ToggleButton
-        android:id="@+id/toggleButton"
+        android:id="@+id/statusRoutine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
@@ -55,6 +55,14 @@
         android:text="ToggleButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/label_status_detail" />
+
+    <Button
+        android:id="@+id/deleteRoutine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="delete"
+        tools:layout_editor_absoluteX="50dp"
+        tools:layout_editor_absoluteY="365dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

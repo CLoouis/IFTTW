@@ -33,6 +33,7 @@ public class create_routine extends AppCompatActivity {
 
         if (triggerType != 0 && actionType == 0) {
             routineBundle = getIntent().getExtras();
+
 //            Log.d("value", routineBundle.getString("hour"));
 //            Log.d("value", routineBundle.getString("month"));
 //            Log.d("value", routineBundle.getString("day"));
@@ -76,6 +77,18 @@ public class create_routine extends AppCompatActivity {
             }
         });
 
+
+        TextView triggerWord = findViewById(R.id.this2);
+        if (routineBundle.getInt("triggerType") == 1){
+            triggerWord.setText("Timer 1");
+        } else if (routineBundle.getInt("triggerType") == 2) {
+            triggerWord.setText("Timer 2");
+        } else if (routineBundle.getInt("triggerType") == 3) {
+            triggerWord.setText("Timer 3");
+        } else if (routineBundle.getInt("triggerType") == 3) {
+            triggerWord.setText("Sensor");
+        }
+
         TextView what = findViewById(R.id.what);
         if (actionType == 1) {
             what.setText("Notification");
@@ -83,6 +96,8 @@ public class create_routine extends AppCompatActivity {
             what.setText("Turn On Wifi");
         } else if (actionType == 3) {
             what.setText("Turn Off Wifi");
+        } else if (actionType == 4) {
+            what.setText("call API");
         }
 
         what.setOnClickListener(new View.OnClickListener() {

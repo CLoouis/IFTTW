@@ -12,7 +12,16 @@ import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.ifttw.date.TriggerDate3;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import static androidx.core.app.ActivityCompat.startActivityForResult;
 
@@ -28,8 +37,8 @@ public class NotificationReceiver extends BroadcastReceiver {
         // action type = 2 -> turn on wifi
         // action type = 3 -> turn off wifi
         int actionType = intent.getIntExtra("actionType", 0);
+        int NOTIFICATION_ID =  intent.getIntExtra("idRoutine", 0);
         if (actionType == 1) {
-            int NOTIFICATION_ID =  intent.getIntExtra("idRoutine", 0);
             String title = intent.getStringExtra("title");
             String description = intent.getStringExtra("description");
 
@@ -38,6 +47,8 @@ public class NotificationReceiver extends BroadcastReceiver {
             turnOnWifi(context);
         } else if (actionType == 3){
             turnOffWifi(context);
+        } else if (actionType == 4) {
+            sendRequest(context, NOTIFICATION_ID);
         } else {
             deliverNotification(context, 0, "Aneh", "ada yang salah");
         }
@@ -84,5 +95,32 @@ public class NotificationReceiver extends BroadcastReceiver {
                 wifiManager.setWifiEnabled(false);
             }
         }
+    }
+
+    private void sendRequest(final Context context, int id) {
+        RequestQueue queue = Volley.newRequestQueue(context);
+        String url = "https://www.boredapi.com/api/activity/";
+        final int notificationId = id;
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    Log.d("response", response);
+                    JSONObject jsonResponse = new JSONObject(response);
+                    deliverNotification(context, notificationId, "Bored?", jsonResponse.get("activity").toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                deliverNotification(context, notificationId, "Bored?", "Something went wrong!");
+            }
+        });
+
+        queue.add(stringRequest);
     }
 }
