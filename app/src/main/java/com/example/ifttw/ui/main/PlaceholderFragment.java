@@ -60,10 +60,10 @@ public class PlaceholderFragment extends Fragment implements RecyclerAdapter.OnE
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
-//        int index = 1;
-//        if (getArguments() != null) {
-//            index = getArguments().getInt(ARG_SECTION_NUMBER);
-//        }
+        int index = 1;
+        if (getArguments() != null) {
+            index = getArguments().getInt(ARG_SECTION_NUMBER);
+        }
 //        pageViewModel.setIndex(index);
     }
 
@@ -74,17 +74,26 @@ public class PlaceholderFragment extends Fragment implements RecyclerAdapter.OnE
         View root = inflater.inflate(R.layout.fragment_main, container, false);
         myRecyclerview = root.findViewById(R.id.recycler_view);
 
-        fetchDataFromRoom();
+        int index = 1;
+        if (getArguments() != null) {
+            index = getArguments().getInt(ARG_SECTION_NUMBER);
+        }
+
+        fetchDataFromRoom(index);
         initRecyclerView();
         setAdapter();
 
         return  root;
     }
 
-    private void fetchDataFromRoom() {
+    private void fetchDataFromRoom(int index) {
         db = Room.databaseBuilder(getActivity().getApplicationContext(),
                 AppDatabase.class,"Routines").allowMainThreadQueries().fallbackToDestructiveMigration().build();
-        listRoutine = db.userDao().getAll();
+        if (index == 1) {
+            listRoutine = db.userDao().getAllActive();
+        } else {
+            listRoutine = db.userDao().getAllInactive();
+        }
         Log.d("size : ", Integer.toString(listRoutine.size()));
 
     }
