@@ -8,9 +8,10 @@
 
     <TextView
         android:id="@+id/what"
-        android:layout_width="172dp"
+        android:layout_width="wrap_content"
         android:layout_height="61dp"
         android:text="@string/what_label"
+        android:textAlignment="center"
         android:textSize="44sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,9 +23,10 @@
 
     <TextView
         android:id="@+id/then"
-        android:layout_width="172dp"
+        android:layout_width="220dp"
         android:layout_height="61dp"
         android:text="@string/then_label"
+        android:textAlignment="center"
         android:textSize="44sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,9 +38,10 @@
 
     <TextView
         android:id="@+id/if1"
-        android:layout_width="172dp"
+        android:layout_width="220dp"
         android:layout_height="61dp"
         android:text="@string/if_label"
+        android:textAlignment="center"
         android:textSize="44sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -50,9 +53,10 @@
 
     <TextView
         android:id="@+id/this2"
-        android:layout_width="172dp"
+        android:layout_width="wrap_content"
         android:layout_height="61dp"
         android:text="@string/this_label"
+        android:textAlignment="center"
         android:textSize="44sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -79,7 +83,9 @@
         android:id="@+id/checkData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Data"
+        android:background="@color/colorPrimary"
+        android:text="Create"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

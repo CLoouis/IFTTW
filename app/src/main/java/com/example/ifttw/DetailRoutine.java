@@ -11,11 +11,14 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import org.w3c.dom.Text;
+
 import java.util.Calendar;
 
 import static com.example.ifttw.MyApp.db;
 
 public class DetailRoutine extends AppCompatActivity {
+    Routines row;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,10 +26,11 @@ public class DetailRoutine extends AppCompatActivity {
         setContentView(R.layout.activity_detail_routine);
 
         final TextView idRoutine = findViewById(R.id.label_id_routine_detail);
-        idRoutine.setText(Integer.toString(getIntent().getIntExtra("idRoutine", 0)));
+        row = db.userDao().getById(getIntent().getIntExtra("idRoutine", 0));
+        idRoutine.setText(Integer.toString(row.getIdRoutine()));
 
         TextView triggerType = findViewById(R.id.label_trigger_detail);
-        int triggerCode = getIntent().getIntExtra("triggerType", 0);
+        int triggerCode = row.getTriggerType();
         if (triggerCode == 1) {
             triggerType.setText("Timer : Daily");
         } else if (triggerCode == 2) {
@@ -38,7 +42,7 @@ public class DetailRoutine extends AppCompatActivity {
         }
 
         TextView actionType = findViewById(R.id.label_action_detail);
-        int actionCode = getIntent().getIntExtra("actionType", 0);
+        int actionCode = row.getActionType();
         if (actionCode == 1) {
             actionType.setText("Notification");
         } else if (actionCode == 2) {
@@ -49,21 +53,22 @@ public class DetailRoutine extends AppCompatActivity {
             actionType.setText("Call External API");
         }
 
-        TextView status = findViewById(R.id.label_status_detail);
-        int statusCode = getIntent().getIntExtra("status", -1);
-        if (statusCode == 0) {
-            status.setText("Inactive");
-        } else if (statusCode == 1) {
-            status.setText("Active");
+        TextView details = findViewById(R.id.label_details);
+        if (triggerCode == 1) {
+            details.setText("Hour : " + row.getHour() + " Minute : " + row.getMinute());
+        } else if (triggerCode == 2) {
+            details.setText("Day : " + row.getDay() + "Hour : " + row.getHour() + " Minute : " + row.getMinute());
+        } else if (triggerCode == 3) {
+            details.setText("Year : " + row.getYear() + " Month : " + row.getMonth() + " Day : " + row.getDay() + " Hour : " + row.getHour() + " Minute : " + row.getMinute());
         }
 
         ToggleButton checkStatus = findViewById(R.id.statusRoutine);
-        checkStatus.setChecked(statusCode == 1);
+        checkStatus.setChecked(row.getStatus() == 1);
 
         Intent intent = new Intent(this, NotificationReceiver.class);
         final PendingIntent statusRoutinePendingIntent = PendingIntent.getBroadcast(
                 this,
-                getIntent().getIntExtra("idRoutine", 0),
+                row.getIdRoutine(),
                 intent, PendingIntent.FLAG_NO_CREATE
         );
         checkStatus.setOnCheckedChangeListener(
@@ -73,14 +78,14 @@ public class DetailRoutine extends AppCompatActivity {
                         if (isChecked) {
                             // create new pending intent to create routine
                             // that have been cancelled
-                            createRoutineBasedOnIdRoutine(getIntent().getIntExtra("idRoutine", 0));
-                            db.userDao().update(1, getIntent().getIntExtra("idRoutine", 0));
+                            createRoutineBasedOnIdRoutine(row.getIdRoutine());
+                            db.userDao().update(1, row.getIdRoutine());
                         } else {
                             if (statusRoutinePendingIntent != null) {
                                 statusRoutinePendingIntent.cancel();
                             }
                             //set status in db to 0
-                            db.userDao().update(0, getIntent().getIntExtra("idRoutine", 0));
+                            db.userDao().update(0, row.getIdRoutine());
                         }
                     }
                 }
@@ -94,14 +99,14 @@ public class DetailRoutine extends AppCompatActivity {
                 if (statusRoutinePendingIntent != null) {
                     statusRoutinePendingIntent.cancel();
                 }
-                db.userDao().deleteUsers(getIntent().getIntExtra("idRoutine", 0));
+                db.userDao().deleteUsers(row.getIdRoutine());
                 goToHome(v);
             }
         });
     }
 
     public void createRoutineBasedOnIdRoutine(int idRoutine) {
-        Routines row = db.userDao().getById(idRoutine);
+//        Routines row = db.userDao().getById(idRoutine);
         int triggerType = row.getTriggerType();
         Bundle routineBundle = new Bundle();
         routineBundle.putInt("triggerType", triggerType);

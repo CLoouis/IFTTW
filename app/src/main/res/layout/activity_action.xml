@@ -9,35 +9,41 @@
     <Button
         android:id="@+id/turnOffWifi"
         android:layout_width="325dp"
-        android:layout_height="124dp"
-        android:fontFamily="sans-serif-condensed"
+        android:layout_height="122dp"
+        android:background="@color/colorPrimary"
+        android:fontFamily="@font/roboto"
         android:text="Turn Off Wifi"
+        android:textColor="@android:color/white"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/turnOnWifi"
-        app:layout_constraintVertical_bias="0.091" />
+        app:layout_constraintVertical_bias="0.079" />
 
     <Button
         android:id="@+id/turnOnWifi"
         android:layout_width="325dp"
         android:layout_height="124dp"
-        android:fontFamily="sans-serif-condensed"
+        android:background="@color/colorPrimary"
+        android:fontFamily="@font/roboto"
         android:text="Turn On Wifi"
+        android:textColor="@android:color/white"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/notification"
-        app:layout_constraintVertical_bias="0.043" />
+        app:layout_constraintVertical_bias="0.057" />
 
     <Button
         android:id="@+id/notification"
         android:layout_width="325dp"
         android:layout_height="124dp"
-        android:fontFamily="sans-serif-condensed"
+        android:background="@color/colorPrimary"
+        android:fontFamily="@font/roboto"
         android:text="@string/notification"
+        android:textColor="@android:color/white"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,14 +55,16 @@
         android:id="@+id/callApi"
         android:layout_width="325dp"
         android:layout_height="124dp"
-        android:fontFamily="sans-serif-condensed"
+        android:background="@color/colorPrimary"
+        android:fontFamily="@font/roboto"
         android:text="Call API"
+        android:textColor="@android:color/white"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/turnOffWifi"
-        app:layout_constraintVertical_bias="0.194" />
+        app:layout_constraintVertical_bias="0.141" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
