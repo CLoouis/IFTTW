@@ -95,6 +95,8 @@ public class TimerReceiver extends BroadcastReceiver implements ActionModule {
     }
 
     public void doAction(PendingIntent pendingIntent, int type) {
+        Log.d("doAction", Long.toString(datePicked.getTimeInMillis()));
+
         if (type == 1) {
             alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
                     datePicked.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);

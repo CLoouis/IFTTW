@@ -11,6 +11,8 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import java.util.Calendar;
+
 import static com.example.ifttw.MyApp.db;
 
 public class DetailRoutine extends AppCompatActivity {
@@ -71,11 +73,12 @@ public class DetailRoutine extends AppCompatActivity {
                         if (isChecked) {
                             // create new pending intent to create routine
                             // that have been cancelled
-                            statusRoutinePendingIntent.cancel();
-
+                            createRoutineBasedOnIdRoutine(getIntent().getIntExtra("idRoutine", 0));
                             db.userDao().update(1, getIntent().getIntExtra("idRoutine", 0));
                         } else {
-                            statusRoutinePendingIntent.cancel();
+                            if (statusRoutinePendingIntent != null) {
+                                statusRoutinePendingIntent.cancel();
+                            }
                             //set status in db to 0
                             db.userDao().update(0, getIntent().getIntExtra("idRoutine", 0));
                         }
@@ -88,10 +91,73 @@ public class DetailRoutine extends AppCompatActivity {
         deleteRoutine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (statusRoutinePendingIntent != null) {
+                    statusRoutinePendingIntent.cancel();
+                }
                 db.userDao().deleteUsers(getIntent().getIntExtra("idRoutine", 0));
                 goToHome(v);
             }
         });
+    }
+
+    public void createRoutineBasedOnIdRoutine(int idRoutine) {
+        Routines row = db.userDao().getById(idRoutine);
+        int triggerType = row.getTriggerType();
+        Bundle routineBundle = new Bundle();
+        routineBundle.putInt("triggerType", triggerType);
+
+        if (triggerType == 1 || triggerType == 2 || triggerType == 3) {
+            Intent triggerTimer = new Intent(this, TimerReceiver.class);
+            Calendar calSet = Calendar.getInstance();
+
+            if (triggerType == 1) {
+
+                calSet.set(Calendar.HOUR_OF_DAY, row.getHour());
+                calSet.set(Calendar.MINUTE,row.getMinute());
+                calSet.set(Calendar.SECOND, 0);
+                calSet.set(Calendar.MILLISECOND, 0);
+
+            } else if (triggerType == 2) {
+
+                calSet.set(Calendar.DAY_OF_MONTH, row.getDay());
+                calSet.set(Calendar.HOUR_OF_DAY,row.getHour());
+                calSet.set(Calendar.MINUTE,row.getMinute());
+                calSet.set(Calendar.SECOND, 0);
+                calSet.set(Calendar.MILLISECOND, 0);
+
+            } else if (triggerType == 3) {
+
+                calSet.set(Calendar.YEAR, row.getYear());
+                calSet.set(Calendar.MONTH, row.getMonth());
+                calSet.set(Calendar.DAY_OF_MONTH, row.getDay());
+
+                calSet.set(Calendar.HOUR_OF_DAY, row.getHour());
+                calSet.set(Calendar.MINUTE,row.getMinute());
+                calSet.set(Calendar.SECOND, 0);
+                calSet.set(Calendar.MILLISECOND, 0);
+
+            }
+
+            routineBundle.putLong("date", calSet.getTimeInMillis());
+
+            routineBundle.putInt("actionType", row.getActionType());
+            if (row.getActionType() == 1) {
+                routineBundle.putString("title", row.getTitle());
+                routineBundle.putString("description", row.getDescription());
+            }
+            triggerTimer.putExtras(routineBundle);
+
+            PendingIntent triggerTimerPendingIntent = PendingIntent.getBroadcast(
+                    this, 0, triggerTimer, PendingIntent.FLAG_UPDATE_CURRENT
+            );
+
+            try {
+                triggerTimerPendingIntent.send();
+            } catch (PendingIntent.CanceledException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     public void goToHome(View v) {
