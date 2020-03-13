@@ -23,15 +23,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.ifttw.DetailRoutine" />
         </activity>
-
-        <activity android:name=".Dummy" />
         <activity
-            android:name=".SensorActivity"
-            android:label="Configure Trigger Sensor"
-            android:parentActivityName=".TriggerActivity">
+            android:name=".ActionActivity"
+            android:label="Select Action"
+            android:parentActivityName=".create_routine">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.ifttw.SensorActivity" />
+                android:value="com.example.ifttw.ActionActivity" />
         </activity>
 
         <receiver
@@ -43,8 +41,14 @@
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".NotificationActivity" />
-        <activity android:name=".ActionActivity" />
+        <activity
+            android:name=".NotificationActivity"
+            android:label="Notification Module"
+            android:parentActivityName=".ActionActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ifttw.NotificationActivity" />
+        </activity>
         <activity
             android:name=".date.TriggerDate3"
             android:label="@string/date1"

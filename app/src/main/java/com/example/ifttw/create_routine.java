@@ -19,8 +19,7 @@ import java.util.Calendar;
 import static com.example.ifttw.MyApp.db;
 
 public class create_routine extends AppCompatActivity {
-//    private Intent createRoutineIntent = new Intent(this, MainActivity.class);
-//    private Intent selectAction;
+
     private Bundle routineBundle = new Bundle();
 
     @Override
@@ -33,40 +32,10 @@ public class create_routine extends AppCompatActivity {
 
         if (triggerType != 0 && actionType == 0) {
             routineBundle = getIntent().getExtras();
-
-//            Log.d("value", routineBundle.getString("hour"));
-//            Log.d("value", routineBundle.getString("month"));
-//            Log.d("value", routineBundle.getString("day"));
-//            Log.d("value", routineBundle.getString("hour"));
-//            Log.d("value", routineBundle.getString("minute"));
-//            createRoutineIntent.putExtra("triggerType", triggerType);
-//            if (triggerType == 1) {
-//                createRoutineIntent.putExtra("hour", intent.getIntExtra("hour", 0));
-//                createRoutineIntent.putExtra("minute", intent.getIntExtra("minute", 0));
-//            } else if (triggerType == 2) {
-//                createRoutineIntent.putExtra("day", intent.getIntExtra("day", 0));
-//                createRoutineIntent.putExtra("hour", intent.getIntExtra("hour", 0));
-//                createRoutineIntent.putExtra("minute", intent.getIntExtra("minute", 0));
-//            } else if (triggerType == 3) {
-//                createRoutineIntent.putExtra("year", intent.getIntExtra("year", 0));
-//                createRoutineIntent.putExtra("month", intent.getIntExtra("month", 0));
-//                createRoutineIntent.putExtra("day", intent.getIntExtra("day", 0));
-//                createRoutineIntent.putExtra("hour", intent.getIntExtra("hour", 0));
-//                createRoutineIntent.putExtra("minute", intent.getIntExtra("minute", 0));
-//            }
-//            selectAction = new Intent(this, ActionActivity.class);
-////            if (actionType == 0){
-////                selectAction.putExtras(intent);
-////            }
         }
 
         if (actionType != 0) {
             routineBundle = getIntent().getExtras();
-//            createRoutineIntent.putExtra("actionType", actionType);
-//            if (actionType == 1) {
-//                   createRoutineIntent.putExtra("title", "");
-//                   createRoutineIntent.putExtra("detail", "");
-//            }
         }
 
         ImageView plus_bttn = findViewById(R.id.plusbttn);
@@ -111,8 +80,8 @@ public class create_routine extends AppCompatActivity {
         data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String toastMessage = "triggerType" + triggerType + "title, desc" + routineBundle.getString("title") + routineBundle.getString("description") + "actionType" + routineBundle.getInt("actionType");
-                Toast.makeText(create_routine.this, toastMessage, Toast.LENGTH_SHORT).show();
+//                String toastMessage = "triggerType" + triggerType + "title, desc" + routineBundle.getString("title") + routineBundle.getString("description") + "actionType" + routineBundle.getInt("actionType");
+//                Toast.makeText(create_routine.this, toastMessage, Toast.LENGTH_SHORT).show();
                 createRoutine();
                 insertRoutineToDatabase();
                 goToHome(v);
@@ -182,6 +151,14 @@ public class create_routine extends AppCompatActivity {
             } catch (PendingIntent.CanceledException e) {
                 e.printStackTrace();
             }
+        } else if (triggerType == 4) {
+            Intent triggerSensor = new Intent(this, SensorService.class);
+            Calendar calSet = Calendar.getInstance();
+            int idRoutine = (int) (calSet.getTimeInMillis() % 1000000000);
+                routineBundle.putInt("idRoutine", idRoutine);
+            triggerSensor.putExtras(routineBundle);
+            SensorService.listAction.put(idRoutine,routineBundle);
+            startService(triggerSensor);
         }
     }
 

@@ -57,7 +57,7 @@ public class TriggerDate2 extends AppCompatActivity implements View.OnClickListe
             final Calendar c = Calendar.getInstance();
             mHour = c.get(Calendar.HOUR_OF_DAY);
             mMinute = c.get(Calendar.MINUTE);
-            // Launch Time Picker Dialog
+            // Open Time Picker Dialog
             TimePickerDialog timePickerDialog = new TimePickerDialog(this,
             new TimePickerDialog.OnTimeSetListener() {
 

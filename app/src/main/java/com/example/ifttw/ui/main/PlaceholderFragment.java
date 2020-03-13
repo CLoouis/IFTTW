@@ -1,33 +1,23 @@
 package com.example.ifttw.ui.main;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import com.example.ifttw.AppDatabase;
 import com.example.ifttw.DetailRoutine;
-import com.example.ifttw.Dummy;
-import com.example.ifttw.MainActivity;
 import com.example.ifttw.R;
 import com.example.ifttw.RecyclerAdapter;
 import com.example.ifttw.Routines;
-import com.example.ifttw.create_routine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,9 +35,6 @@ public class PlaceholderFragment extends Fragment implements RecyclerAdapter.OnE
     private RecyclerAdapter recyclerAdapter;
     private List<Routines> listRoutine = new ArrayList<>();
 
-
-//    private PageViewModel pageViewModel;
-
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
         Bundle bundle = new Bundle();
@@ -59,12 +46,10 @@ public class PlaceholderFragment extends Fragment implements RecyclerAdapter.OnE
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
         int index = 1;
         if (getArguments() != null) {
             index = getArguments().getInt(ARG_SECTION_NUMBER);
         }
-//        pageViewModel.setIndex(index);
     }
 
     @Override
