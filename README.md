@@ -34,7 +34,7 @@ Jika kondisi yang diinginkan berkaitan dengan sensor maka akan dijalankan foregr
 ## Library yang Digunakan 
 Aplikasi menggunakan library Volley. Adapun kegunaan library Volley adalah untuk mempermudah dan mempercepat networking. Hal ini juga memudahkan pengembang android untuk request ke suatu API. Kami menggunakan Request Queue dari Volley untuk request ke boredapi.com/api/activity.
 ##  Screenshot Aplikasi
-![](images/1.jpg = 100x)
+![](images/1.jpg)
 ![](images/22.jpg)
 ![](images/3.jpg)
 ![](images/4.jpg)
