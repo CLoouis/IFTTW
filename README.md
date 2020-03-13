@@ -21,16 +21,31 @@ Aktif jika waktu yang diinginkan tiba. Waktu yang diinginkan bisa berupa hal-hal
 ## Cara Kerja
 Aplikasi menampilkan daftar rutin yang telah dibuat pada dua buah fragment yang mana rutin terpisah antara rutin yang aktif dan rutin yang sudah tidak aktif. Ketika pengguna ingin membuat sebuah rutin baru maka, pengguna diminta mengisikan keterangan mengenai kondisi dan aksi yang ingin dibuat. Ketika pengguna mengklik tombol create maka aplikasi akan melakukan pengecekan.
 
-Jika kondisi yang diinginkan berkaitan dengan timer maka akan dikirimkan PendingIntent kepada Timer Broadcast Receiver, dari sana data mengenai rutin yang akan dibuat di parsing dan dilakukan pengiriman intent kepada Broadcast Receiver kedua. Pengiriman intent (data pada Intent) bergantung pada jenis aksi yang ingin dilakukan. Ketika Broadcast Receiver kedua (khusus menangani pembuatan aksi), maka dilakukan pengecekan pada jenis aksi dan akan menjalankan metod yang sesuai. Setelah itu data rutin dimasukan ke database.
+Jika kondisi yang diinginkan berkaitan dengan timer maka akan dikirimkan PendingIntent kepada Timer Broadcast Receiver, dari sana data mengenai rutin yang akan dibuat di parsing dan dilakukan pengiriman intent kepada Broadcast Receiver kedua. Pengiriman intent (data pada Intent) bergantung pada jenis aksi yang ingin dilakukan. Ketika Broadcast Receiver (khusus menangani pembuatan aksi) kedua menerima Intent, maka dilakukan pengecekan pada jenis aksi dan akan menjalankan metod yang sesuai. Setelah itu data rutin dimasukan ke database.
 
-Jika kondisi yang diinginkan berkaitan dengan sensor ...
+Jika kondisi yang diinginkan berkaitan dengan sensor maka akan dijalankan foreground service, foreground service akan berkomunikasi dengan Broadcast Receiver yag bertanggung jawab dalam pemanggilan aksi. Ketika Broadcast Receiver tersebut menerima Intent maka proses selanjutnya sama seperti Timer.
 
 * Modul Kondisi Timer dibuat dengan memanfaatkan AlarmManager yang dapat mengirimkan PendingIntent sesuai dengan waktu yang di inginkan. 
-* Modul Kondisi yang menggunakan sensor dibuat dengan memanfaatkan ...
+* Modul Kondisi yang menggunakan sensor dibuat dengan memanfaatkan Foreground Service
 * Modul Aksi Notify Me dibuat dengan memanfaatkan Notification Manager dan Broadcast Receiver. Selain itu dilakukan pembuatan notification channel (untuk versi Android > 8.0)
 * Modul Aksi yang mengakses API eksternal dibuat dengan Volley
-* Modul Aksi mengaktifkan / mematikan WiFi dibuat dengan ... Namun modul ini tidak lagi dapat digunakan pada versi Android 10 dikarenakan Android 10 melarang aplikasi dapat secara langsung mengaktifkan / mematikan WiFi.
+* Modul Aksi mengaktifkan / mematikan WiFi dibuat dengan Wifi Manager. Namun modul ini tidak lagi dapat digunakan pada versi Android 10 dikarenakan Android 10 melarang aplikasi dapat secara langsung mengaktifkan / mematikan WiFi.
     
 ## Library yang Digunakan 
-
+Aplikasi menggunakan library Volley. Adapun kegunaan library Volley adalah untuk mempermudah dan mempercepat networking. Hal ini juga memudahkan pengembang android untuk request ke suatu API. Kami menggunakan Request Queue dari Volley untuk request ke boredapi.com/api/activity.
 ##  Screenshot Aplikasi
+![](images/1.jpg)
+![](images/22.jpg)
+![](images/3.jpg)
+![](images/4.jpg)
+![](images/5.jpg)
+![](images/6.jpg)
+![](images/122.jpg)
+![](images/7.jpg)
+![](images/8.jpg)
+![](images/9.jpg)
+![](images/11.jpg)
+![](images/10.jpg)
+![](images/12.jpg)
+![](images/33.jpg)
+![](images/44.jpg)
