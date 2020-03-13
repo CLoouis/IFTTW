@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class NotificationActivity extends AppCompatActivity {
-//    private Intent intentSource = getIntent();
     private Bundle bundleAction = new Bundle();
     EditText titleNotification;
     EditText detailNotification;
@@ -33,7 +32,6 @@ public class NotificationActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                pushNotification();
                 goToCreateRoutine(view);
             }
         });
@@ -44,26 +42,7 @@ public class NotificationActivity extends AppCompatActivity {
         Intent intent = new Intent(this, create_routine.class);
         bundleAction.putString("title", titleNotification.getText().toString());
         bundleAction.putString("description", detailNotification.getText().toString());
-//        intent.putExtras(intentSource);
-//        intent.putExtra("actionType", 1);
-//        intent.putExtra("title", titleNotification.toString());
-//        intent.putExtra("detail", detailNotification.toString());
         intent.putExtras(bundleAction);
         startActivity(intent);
     }
-
-//    public void pushNotification() {
-//        Intent intent = new Intent(this, NotificationReceiver.class);
-//        intent.putExtra("idRoutine", 0);
-//        intent.putExtra("title", titleNotification.getText().toString());
-//        intent.putExtra("description", detailNotification.getText().toString());
-//        final PendingIntent notifyPendingIntent = PendingIntent.getBroadcast
-//                (this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//
-//        try {
-//            notifyPendingIntent.send();
-//        } catch (PendingIntent.CanceledException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }

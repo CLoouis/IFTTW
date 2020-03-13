@@ -14,21 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-//package com.example.ifttw.ui.main;
-//
-//import android.content.Context;
-//import android.view.LayoutInflater;
-//import android.view.View;
-//import android.view.ViewGroup;
-//import android.widget.TextView;
-//
-//import androidx.recyclerview.widget.RecyclerView;
-//
-//import com.example.ifttw.R;
-//import com.example.ifttw.Routines;
-//
-//import java.util.List;
-//
+
 public class RecyclerAdapter extends  RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
 
     private Context mContext;
@@ -90,13 +76,13 @@ public class RecyclerAdapter extends  RecyclerView.Adapter<RecyclerAdapter.MyVie
         if (actionType == 1) valueAction = "Notification";
         else if (actionType == 2) valueAction = "Turn on Wifi";
         else if (actionType == 3) valueAction = "Turn off Wifi";
-        else if (actionType == 4) valueAction = "Send email";
+        else if (actionType == 4) valueAction = "Call external API";
         holder.actionTxt.setText(valueAction);
 
         String valueStatus = null;
         int status = album.getStatus();
         if (status == 1) valueStatus = "Active";
-        else if (status == 2) valueStatus = "No Active";
+        else valueStatus = "Inactive";
         holder.statusTxt.setText(valueStatus);
 
     }

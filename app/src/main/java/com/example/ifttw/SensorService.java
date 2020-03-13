@@ -23,74 +23,6 @@ import androidx.core.app.NotificationCompat;
 
 import java.util.HashMap;
 
-//public class SensorService extends Service implements SensorEventListener {
-//    int mStartMode; // indicates how to behave if the service is killed
-//    IBinder mBinder; // interface for clients that bind
-//    boolean mAllowRebind; // indicates whether onRebind should be used
-//
-//    public SensorManager mSensorManager;
-//    public Sensor mSensorProximity;
-//    public TextView mTextSensorProximity;
-//
-//    @Override
-//    public void onCreate() {
-//        // The service is being created
-//        Toast.makeText(this, "Sensor service was Created", Toast.LENGTH_LONG).show();
-//    }
-//
-//    @Override
-//    public int onStartCommand(Intent intent, int flags, int startId) {
-//        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-//        mSensorProximity = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
-//        mSensorManager.registerListener(this, mSensorProximity, SensorManager.SENSOR_DELAY_NORMAL);
-//        Toast.makeText(this, "Sensor service Started", Toast.LENGTH_LONG).show();
-//
-//
-//
-//        return Service.START_STICKY;
-//    }
-//
-//    @Override
-//    public IBinder onBind(Intent intent) {
-//        // A client is binding to the service with bindService()
-//        return mBinder;
-//    }
-//
-//    @Override
-//    public boolean onUnbind(Intent intent) {
-//        // All clients have unbound with unbindService()
-//        return mAllowRebind;
-//    }
-//
-//    @Override
-//    public void onRebind(Intent intent) {
-//        // A client is binding to the service with bindService(),
-//        // after onUnbind() has already been called
-//    }
-//
-//    @Override
-//    public void onDestroy() {
-//        // The service is no longer used and is being destroyed
-//        super.onDestroy();
-//        mSensorManager.unregisterListener(this);
-//    }
-//
-//    @Override
-//    public void onSensorChanged(SensorEvent event) {
-//        float currentValue = event.values[0];
-//        Log.d("value" , Float.toString(currentValue));
-//        if (currentValue < 5) {
-//            Toast.makeText(this, "Near", Toast.LENGTH_SHORT).show();
-//        } else {
-//            Toast.makeText(this, "Far", Toast.LENGTH_SHORT).show();
-//        }
-//    }
-//
-//    @Override
-//    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-//
-//    }
-//}
 
 public class SensorService extends Service implements SensorEventListener, ActionModule {
 
@@ -122,11 +54,11 @@ public class SensorService extends Service implements SensorEventListener, Actio
                 0, notificationIntent, 0);
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("Sensor Service")
-                .setContentText("Id Routine :" + idRoutine)
+                .setContentText("Sensor proximity is active.")
                 .setSmallIcon(R.drawable.ic_logo)
                 .setContentIntent(pendingIntent)
                 .build();
-        startForeground(idRoutine, notification);
+        startForeground(-1, notification);
         //do heavy work on a background thread
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mSensorProximity = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
@@ -151,9 +83,7 @@ public class SensorService extends Service implements SensorEventListener, Actio
         float currentValue = event.values[0];
         Log.d("value" , Float.toString(currentValue));
         if (currentValue < 4) {
-            // Print keys and values
             for (Integer idRoutine : listAction.keySet()) {
-//                out.println("key: " + i + " value: " + capitalCities.get(i));
                 if (listAction.get(idRoutine).getInt("actionType") == 1) {
                     String title = listAction.get(idRoutine).getString("title");
                     String description = listAction.get(idRoutine).getString("description");
@@ -167,7 +97,7 @@ public class SensorService extends Service implements SensorEventListener, Actio
                 }
             }
         } else {
-
+            // do Nothing
         }
     }
 
@@ -198,7 +128,6 @@ public class SensorService extends Service implements SensorEventListener, Actio
         final PendingIntent notifyPendingIntent = PendingIntent.getBroadcast
                 (context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-//        doAction(notifyPendingIntent, type);
         try {
             notifyPendingIntent.send();
         } catch (PendingIntent.CanceledException e) {
@@ -216,7 +145,6 @@ public class SensorService extends Service implements SensorEventListener, Actio
                 context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT
         );
 
-//        doAction(turnOnPendingIntent, type);
         try {
             turnOnPendingIntent.send();
         } catch (PendingIntent.CanceledException e) {
@@ -234,7 +162,6 @@ public class SensorService extends Service implements SensorEventListener, Actio
                 context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT
         );
 
-//        doAction(turnOffPendingIntent, type);
         try {
             turnOffPendingIntent.send();
         } catch (PendingIntent.CanceledException e) {
@@ -252,7 +179,6 @@ public class SensorService extends Service implements SensorEventListener, Actio
                 context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT
         );
 
-//        doAction(sendRequestPendingIntent, type);
         try {
             sendRequestPendingIntent.send();
         } catch (PendingIntent.CanceledException e) {
