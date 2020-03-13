@@ -21,6 +21,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
+import java.util.HashMap;
+
 //public class SensorService extends Service implements SensorEventListener {
 //    int mStartMode; // indicates how to behave if the service is killed
 //    IBinder mBinder; // interface for clients that bind
@@ -90,7 +92,7 @@ import androidx.core.app.NotificationCompat;
 //    }
 //}
 
-public class SensorService extends Service implements SensorEventListener {
+public class SensorService extends Service implements SensorEventListener, ActionModule {
 
     int mStartMode; // indicates how to behave if the service is killed
     IBinder mBinder; // interface for clients that bind
@@ -101,6 +103,7 @@ public class SensorService extends Service implements SensorEventListener {
     public TextView mTextSensorProximity;
 
     public static final String CHANNEL_ID = "SensorServiceChannel";
+    public static HashMap <Integer, Bundle>  listAction = new HashMap<Integer, Bundle>();
 
     @Override
     public void onCreate() {
@@ -110,25 +113,27 @@ public class SensorService extends Service implements SensorEventListener {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        String input = intent.getStringExtra("inputExtra");
+        int idRoutine = intent.getIntExtra("idRoutine", 0);
+        int actionType = intent.getIntExtra("actionType", 0);
+
         createNotificationChannel();
-        Intent notificationIntent = new Intent(this, SensorActivity.class);
+        Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
                 0, notificationIntent, 0);
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("Sensor Service")
-                .setContentText(input)
+                .setContentText("Id Routine :" + idRoutine)
                 .setSmallIcon(R.drawable.ic_logo)
                 .setContentIntent(pendingIntent)
                 .build();
-        startForeground(1, notification);
+        startForeground(idRoutine, notification);
         //do heavy work on a background thread
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mSensorProximity = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         mSensorManager.registerListener(this, mSensorProximity, SensorManager.SENSOR_DELAY_NORMAL);
         Toast.makeText(this, "Sensor service Started", Toast.LENGTH_LONG).show();
         //stopSelf();
-        return START_NOT_STICKY;
+        return START_STICKY;
     }
     @Override
     public void onDestroy() {
@@ -146,9 +151,23 @@ public class SensorService extends Service implements SensorEventListener {
         float currentValue = event.values[0];
         Log.d("value" , Float.toString(currentValue));
         if (currentValue < 4) {
-            Toast.makeText(this, "Near", Toast.LENGTH_SHORT).show();
+            // Print keys and values
+            for (Integer idRoutine : listAction.keySet()) {
+//                out.println("key: " + i + " value: " + capitalCities.get(i));
+                if (listAction.get(idRoutine).getInt("actionType") == 1) {
+                    String title = listAction.get(idRoutine).getString("title");
+                    String description = listAction.get(idRoutine).getString("description");
+                    pushNotification(this, idRoutine, title, description);
+                } else if (listAction.get(idRoutine).getInt("actionType") == 2) {
+                    turnOnWifi(this, idRoutine);
+                } else if (listAction.get(idRoutine).getInt("actionType") == 3) {
+                    turnOffWifi(this, idRoutine);
+                } else if (listAction.get(idRoutine).getInt("actionType") == 4) {
+                    sendRequest(this, idRoutine);
+                }
+            }
         } else {
-            Toast.makeText(this, "Far", Toast.LENGTH_SHORT).show();
+
         }
     }
 
@@ -166,6 +185,78 @@ public class SensorService extends Service implements SensorEventListener {
             );
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(serviceChannel);
+        }
+    }
+
+    public void pushNotification(Context context, int id, String title, String detail) {
+        Intent intent = new Intent(context, NotificationReceiver.class);
+        intent.putExtra("idRoutine", id);
+        intent.putExtra("actionType", 1);
+        intent.putExtra("title", title);
+        intent.putExtra("description", detail);
+
+        final PendingIntent notifyPendingIntent = PendingIntent.getBroadcast
+                (context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+//        doAction(notifyPendingIntent, type);
+        try {
+            notifyPendingIntent.send();
+        } catch (PendingIntent.CanceledException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void turnOnWifi(Context context, int id) {
+        Intent intent = new Intent(context, NotificationReceiver.class);
+        intent.putExtra("idRoutine", id);
+        intent.putExtra("actionType", 2);
+
+        final PendingIntent turnOnPendingIntent = PendingIntent.getBroadcast(
+                context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT
+        );
+
+//        doAction(turnOnPendingIntent, type);
+        try {
+            turnOnPendingIntent.send();
+        } catch (PendingIntent.CanceledException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void turnOffWifi(Context context, int id) {
+        Intent intent = new Intent(context, NotificationReceiver.class);
+        intent.putExtra("idRoutine", id);
+        intent.putExtra("actionType", 3);
+
+        final PendingIntent turnOffPendingIntent = PendingIntent.getBroadcast(
+                context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT
+        );
+
+//        doAction(turnOffPendingIntent, type);
+        try {
+            turnOffPendingIntent.send();
+        } catch (PendingIntent.CanceledException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void sendRequest(Context context, int id) {
+        Intent intent = new Intent(context, NotificationReceiver.class);
+        intent.putExtra("idRoutine", id);
+        intent.putExtra("actionType", 4);
+
+        final PendingIntent sendRequestPendingIntent = PendingIntent.getBroadcast(
+                context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT
+        );
+
+//        doAction(sendRequestPendingIntent, type);
+        try {
+            sendRequestPendingIntent.send();
+        } catch (PendingIntent.CanceledException e) {
+            e.printStackTrace();
         }
     }
 }

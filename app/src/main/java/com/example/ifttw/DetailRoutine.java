@@ -75,12 +75,23 @@ public class DetailRoutine extends AppCompatActivity {
                             // that have been cancelled
                             createRoutineBasedOnIdRoutine(getIntent().getIntExtra("idRoutine", 0));
                             db.userDao().update(1, getIntent().getIntExtra("idRoutine", 0));
+                            int idRoutine = getIntent().getIntExtra("idRoutine", 0);
+                            Routines row = db.userDao().getById(idRoutine);
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("actionType", row.getActionType());
+                            bundle.putInt("idRoutine", row.getIdRoutine());
+                            bundle.putString("title", row.getTitle());
+                            bundle.putString("description", row.getDescription());
+                            if (idRoutine != 0) SensorService.listAction.put(idRoutine, bundle);
+
                         } else {
                             if (statusRoutinePendingIntent != null) {
                                 statusRoutinePendingIntent.cancel();
                             }
                             //set status in db to 0
                             db.userDao().update(0, getIntent().getIntExtra("idRoutine", 0));
+                            int idRoutine = getIntent().getIntExtra("idRoutine", 0);
+                            if (idRoutine != 0) SensorService.listAction.remove(idRoutine);
                         }
                     }
                 }
@@ -95,6 +106,8 @@ public class DetailRoutine extends AppCompatActivity {
                     statusRoutinePendingIntent.cancel();
                 }
                 db.userDao().deleteUsers(getIntent().getIntExtra("idRoutine", 0));
+                int idRoutine = getIntent().getIntExtra("idRoutine", 0);
+                if (idRoutine != 0) SensorService.listAction.remove(idRoutine);
                 goToHome(v);
             }
         });

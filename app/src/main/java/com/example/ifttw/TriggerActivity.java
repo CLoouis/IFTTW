@@ -38,7 +38,8 @@ public class TriggerActivity extends AppCompatActivity {
     }
 
     public void launchSensorActivity(View v) {
-        Intent intent = new Intent(this, SensorActivity.class);
+        Intent intent = new Intent(this, create_routine.class);
+        intent.putExtra("triggerType", 4);
         startActivity(intent);
     }
 

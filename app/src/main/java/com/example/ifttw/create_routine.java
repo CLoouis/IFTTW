@@ -182,6 +182,14 @@ public class create_routine extends AppCompatActivity {
             } catch (PendingIntent.CanceledException e) {
                 e.printStackTrace();
             }
+        } else if (triggerType == 4) {
+            Intent triggerSensor = new Intent(this, SensorService.class);
+            Calendar calSet = Calendar.getInstance();
+            int idRoutine = (int) (calSet.getTimeInMillis() % 1000000000);
+                routineBundle.putInt("idRoutine", idRoutine);
+            triggerSensor.putExtras(routineBundle);
+            SensorService.listAction.put(idRoutine,routineBundle);
+            startService(triggerSensor);
         }
     }
 
