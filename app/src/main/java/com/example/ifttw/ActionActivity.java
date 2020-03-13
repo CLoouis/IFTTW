@@ -23,12 +23,56 @@ public class ActionActivity extends AppCompatActivity {
             }
         });
 
+        Button turnOnWifi = findViewById(R.id.turnOnWifi);
+        turnOnWifi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchTurnOnWifi(v);
+            }
+        });
+
+        Button turnOffWifi = findViewById(R.id.turnOffWifi);
+        turnOffWifi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchTurnOffWifi(v);
+            }
+        });
+
+        Button callApi = findViewById(R.id.callApi);
+        callApi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchCallApi(v);
+            }
+        });
         bundleSource = getIntent().getExtras();
     }
 
     public void launchNotificationActivity(View view) {
         Intent intent = new Intent(this, NotificationActivity.class);
         intent.putExtras(bundleSource);
+        startActivity(intent);
+    }
+
+    public void launchTurnOnWifi(View view) {
+        Intent intent = new Intent(this, create_routine.class);
+        intent.putExtras(bundleSource);
+        intent.putExtra("actionType", 2);
+        startActivity(intent);
+    }
+
+    public void launchTurnOffWifi(View view) {
+        Intent intent = new Intent(this, create_routine.class);
+        intent.putExtras(bundleSource);
+        intent.putExtra("actionType", 3);
+        startActivity(intent);
+    }
+
+    public void launchCallApi(View view) {
+        Intent intent = new Intent(this, create_routine.class);
+        intent.putExtras(bundleSource);
+        intent.putExtra("actionType", 4);
         startActivity(intent);
     }
 }

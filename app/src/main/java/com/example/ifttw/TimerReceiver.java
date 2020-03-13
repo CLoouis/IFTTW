@@ -10,6 +10,7 @@ import android.util.Log;
 
 import androidx.core.app.ActivityCompat;
 
+import java.io.PipedInputStream;
 import java.util.Calendar;
 
 import static android.content.Context.ALARM_SERVICE;
@@ -51,16 +52,7 @@ public class TimerReceiver extends BroadcastReceiver implements ActionModule {
         final PendingIntent notifyPendingIntent = PendingIntent.getBroadcast
                 (context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        if (type == 1) {
-            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
-                    datePicked.getTimeInMillis(), AlarmManager.INTERVAL_DAY, notifyPendingIntent);
-        }  else if (type == 2) {
-            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
-                    datePicked.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, notifyPendingIntent);
-        } else if (type == 3) {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP,
-                    datePicked.getTimeInMillis(), notifyPendingIntent);
-        }
+        doAction(notifyPendingIntent, type);
     }
 
     @Override
@@ -73,11 +65,7 @@ public class TimerReceiver extends BroadcastReceiver implements ActionModule {
                 context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT
         );
 
-        try {
-            turnOnPendingIntent.send();
-        } catch (PendingIntent.CanceledException e) {
-            e.printStackTrace();
-        }
+        doAction(turnOnPendingIntent, type);
     }
 
     @Override
@@ -86,15 +74,11 @@ public class TimerReceiver extends BroadcastReceiver implements ActionModule {
         intent.putExtra("idRoutine", id);
         intent.putExtra("actionType", 3);
 
-        final PendingIntent turnOnPendingIntent = PendingIntent.getBroadcast(
+        final PendingIntent turnOffPendingIntent = PendingIntent.getBroadcast(
                 context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT
         );
 
-        try {
-            turnOnPendingIntent.send();
-        } catch (PendingIntent.CanceledException e) {
-            e.printStackTrace();
-        }
+       doAction(turnOffPendingIntent, type);
     }
 
     @Override
@@ -107,10 +91,19 @@ public class TimerReceiver extends BroadcastReceiver implements ActionModule {
                 context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT
         );
 
-        try {
-            sendRequestPendingIntent.send();
-        } catch (PendingIntent.CanceledException e) {
-            e.printStackTrace();
+        doAction(sendRequestPendingIntent, type);
+    }
+
+    public void doAction(PendingIntent pendingIntent, int type) {
+        if (type == 1) {
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+                    datePicked.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        }  else if (type == 2) {
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+                    datePicked.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, pendingIntent);
+        } else if (type == 3) {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP,
+                    datePicked.getTimeInMillis(), pendingIntent);
         }
     }
 }

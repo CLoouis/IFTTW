@@ -20,6 +20,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ifttw.date.TriggerDate3;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import static androidx.core.app.ActivityCompat.startActivityForResult;
 
 public class NotificationReceiver extends BroadcastReceiver {
@@ -96,13 +99,20 @@ public class NotificationReceiver extends BroadcastReceiver {
 
     private void sendRequest(final Context context, int id) {
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url = "http://www.boredapi.com/api/activity/";
+        String url = "https://www.boredapi.com/api/activity/";
         final int notificationId = id;
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                deliverNotification(context, notificationId, "Bored?", response);
+                try {
+                    Log.d("response", response);
+                    JSONObject jsonResponse = new JSONObject(response);
+                    deliverNotification(context, notificationId, "Bored?", jsonResponse.get("activity").toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
         }, new Response.ErrorListener() {
             @Override
