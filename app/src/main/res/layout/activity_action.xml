@@ -7,6 +7,32 @@
     tools:context=".ActionActivity">
 
     <Button
+        android:id="@+id/turnOffWifi"
+        android:layout_width="325dp"
+        android:layout_height="124dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Turn Off Wifi"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/turnOnWifi"
+        app:layout_constraintVertical_bias="0.091" />
+
+    <Button
+        android:id="@+id/turnOnWifi"
+        android:layout_width="325dp"
+        android:layout_height="124dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Turn On Wifi"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notification"
+        app:layout_constraintVertical_bias="0.043" />
+
+    <Button
         android:id="@+id/notification"
         android:layout_width="325dp"
         android:layout_height="124dp"
@@ -18,6 +44,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.075" />
+
+    <Button
+        android:id="@+id/callApi"
+        android:layout_width="325dp"
+        android:layout_height="124dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Call API"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/turnOffWifi"
+        app:layout_constraintVertical_bias="0.194" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
